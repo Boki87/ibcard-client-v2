@@ -26,7 +26,7 @@ export const AppButton = ({
   return (
     <button
       className={combineCss(
-        `w-full h-10 rounded-full flex items-center justify-center gap-4 text-lg disabled:cursor-not-allowed`,
+        `w-full h-10 rounded-full flex items-center justify-center gap-2 text-lg disabled:cursor-not-allowed`,
         variantStyles,
         className
       )}

@@ -62,7 +62,7 @@ export const AppInput = ({
   return (
     <div
       className={combineCss(
-        "w-full h-10 border-full overflow-hidden relative rounded-full bg-gray-200",
+        "w-full max-w-lg h-10 border-full overflow-hidden relative rounded-full bg-gray-200 dark:bg-gray-500",
         focusedStyles,
         leftIconStyles,
         rightIconStyles,
@@ -74,7 +74,7 @@ export const AppInput = ({
           onClick={() =>
             leftIconAction ? leftIconAction() : inputRef?.current?.focus()
           }
-          className="w-10 h-full bg-gray-200 flex items-center justify-center absolute top-0 left-0 cursor-pointer"
+          className="w-10 h-full bg-gray-200 dark:bg-gray-500 flex items-center justify-center absolute top-0 left-0 cursor-pointer dark:text-white"
         >
           {leftIcon}
         </div>
@@ -85,15 +85,16 @@ export const AppInput = ({
           onClick={() =>
             rightIconAction ? rightIconAction() : inputRef?.current?.focus()
           }
-          className="w-10 h-full flex items-center justify-center absolute top-0 right-0 cursor-pointer"
+          className="w-10 h-full flex items-center justify-center absolute top-0 right-0 cursor-pointer dark:text-white"
         >
           {rightIcon}
         </div>
       )}
 
       <input
+        autoComplete="off"
         ref={inputRef}
-        className="outline-none border-none w-full h-full px-4 bg-transparent rounded-full text-gray-800 placeholder:text-gray-500 dark:text-white dark:placeholder:text-white"
+        className="outline-none border-none w-full h-full px-4 bg-transparent rounded-full text-gray-800 placeholder:text-gray-500 dark:text-white dark:placeholder-white"
         type="text"
         {...rest}
       />
