@@ -10,12 +10,20 @@ interface IModalsContext {
   isMainMenuOpen: boolean;
   openMainMenu: () => void;
   closeMainMenu: () => void;
+  isQrModalOpen: boolean;
+  qrCodeUrl: string;
+  openQrModal: (url: string) => void;
+  closeQrModal: () => void;
 }
 
 const initialState: IModalsContext = {
   isMainMenuOpen: false,
   openMainMenu: () => {},
   closeMainMenu: () => {},
+  isQrModalOpen: false,
+  qrCodeUrl: "",
+  openQrModal: () => {},
+  closeQrModal: () => {},
 };
 
 const ModalsContext = createContext(initialState);
@@ -27,6 +35,8 @@ export default function ModalsContextProvider({
   children: ReactNode;
 }) {
   const [isMainMenuOpen, setIsMainMenuOpen] = useState(false);
+  const [isQrModalOpen, setIsQrModalOpen] = useState(false);
+  const [qrCodeUrl, setQrCodeUrl] = useState("");
 
   function openMainMenu() {
     setIsMainMenuOpen(true);
@@ -35,9 +45,26 @@ export default function ModalsContextProvider({
     setIsMainMenuOpen(false);
   }
 
+  function openQrModal(url: string) {
+    setQrCodeUrl(url);
+    setIsQrModalOpen(true);
+  }
+  function closeQrModal() {
+    setQrCodeUrl("");
+    setIsQrModalOpen(false);
+  }
+
   return (
     <ModalsContext.Provider
-      value={{ isMainMenuOpen, openMainMenu, closeMainMenu }}
+      value={{
+        isMainMenuOpen,
+        openMainMenu,
+        closeMainMenu,
+        isQrModalOpen,
+        qrCodeUrl,
+        openQrModal,
+        closeQrModal,
+      }}
     >
       {children}
     </ModalsContext.Provider>

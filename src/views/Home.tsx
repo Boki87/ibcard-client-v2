@@ -3,10 +3,12 @@ import { useEffect, useState } from "react";
 import { Card } from "../types/Card";
 import { UserCard } from "../components/UserCard";
 import { CardSkeletonLoader } from "../components/CardSkeletonLoader";
+import { useModalsContext } from "../context/ModalsContext";
 
 export const Home = () => {
   const [cards, setCards] = useState<Card[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { openQrModal } = useModalsContext();
 
   async function fetchCards() {
     try {
@@ -36,7 +38,13 @@ export const Home = () => {
       </p>
       <div className="pb-8">
         {!isLoading &&
-          cards.map((card) => <UserCard data={card} key={card.id} />)}
+          cards.map((card) => (
+            <UserCard
+              data={card}
+              key={card.id}
+              onQrCodeClick={() => openQrModal(card.nfc_card?.link || "")}
+            />
+          ))}
         {isLoading && (
           <>
             <CardSkeletonLoader />

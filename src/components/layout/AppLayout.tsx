@@ -8,6 +8,7 @@ import { GiChart } from "react-icons/gi";
 import { ReactNode } from "react";
 import { useModalsContext } from "../../context/ModalsContext";
 import { MainMenu } from "../MainMenu";
+import { QRModal } from "../QRModal";
 
 export const AppLayout = () => {
   const { openMainMenu } = useModalsContext();
@@ -36,6 +37,7 @@ export const AppLayout = () => {
       </div>
 
       <MainMenu />
+      <QRModal />
     </>
   );
 };

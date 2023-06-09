@@ -4,9 +4,10 @@ import { BsQrCodeScan, BsChevronRight } from "react-icons/bs";
 
 interface UserCardProps {
   data: Card;
+  onQrCodeClick: () => void;
 }
 
-export const UserCard = ({ data }: UserCardProps) => {
+export const UserCard = ({ data, onQrCodeClick }: UserCardProps) => {
   const cardUid = data.nfc_card?.link.split("/card/")[1];
 
   return (
@@ -26,7 +27,7 @@ export const UserCard = ({ data }: UserCardProps) => {
         </span>
       </Link>
       <div className="h-full flex flex-col justify-between items-center">
-        <button className="text-4xl dark:text-gray-200">
+        <button onClick={onQrCodeClick} className="text-4xl dark:text-gray-200">
           <BsQrCodeScan />
         </button>
         <Link

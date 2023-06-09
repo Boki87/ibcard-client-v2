@@ -32,9 +32,9 @@ export const FrontPageLoader = () => {
         <div className="w-full h-10 rounded-full bg-slate-300 dark:bg-slate-700 my-6"></div>
 
         <div className="grid grid-cols-3 gap-4 mt-12">
-          {new Array(9).fill(1).map((icon) => {
+          {new Array(9).fill(1).map((icon, index) => {
             return (
-              <div className="flex justify-center">
+              <div className="flex justify-center" key={icon + "_" + index}>
                 <div className="w-20 h-20 rounded-xl bg-slate-300 dark:bg-slate-600"></div>
               </div>
             );

@@ -7,14 +7,16 @@ interface UserSocialsProps {
 }
 
 export const UserSocials = ({ socials }: UserSocialsProps) => {
-  const video = socials.find((s) => s.type === "video");
+  const video = socials.find((s) => s.is_active && s.type === "video");
 
-  const flyers = socials.filter((s) => s.type === "flyer");
+  const flyers = socials.filter((s) => s.is_active && s.type === "flyer");
 
-  const catalogues = socials.filter((s) => s.type === "catalogue");
+  const catalogues = socials.filter(
+    (s) => s.is_active && s.type === "catalogue"
+  );
 
   const commonSocials = socials.filter(
-    (s) => !["catalogue", "flyer", "video"].includes(s.type)
+    (s) => s.is_active && !["catalogue", "flyer", "video"].includes(s.type)
   );
 
   function handleSocialClick(href: string | undefined) {
@@ -23,9 +25,9 @@ export const UserSocials = ({ socials }: UserSocialsProps) => {
   }
 
   return (
-    <div>
+    <div className="mt-6">
       {video && (
-        <div className="my-6">
+        <div className="mb-6">
           <iframe
             className="w-full aspect-video mx-auto rounded-md bg-slate-300 dark:bg-slate-500"
             src={video?.url}
@@ -48,7 +50,7 @@ export const UserSocials = ({ socials }: UserSocialsProps) => {
       )}
       <div className="grid grid-cols-3 gap-4 max-w-xs mx-auto">
         {commonSocials.map((social) => (
-          <div className="flex justify-center">
+          <div className="flex justify-center" key={social.id}>
             <SocialIcon
               onClick={() => handleSocialClick(social.url)}
               url={social.url || ""}

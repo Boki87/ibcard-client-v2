@@ -9,16 +9,25 @@ import { RxCopy } from "react-icons/rx";
 import { UserMainInfo } from "./UserMainInfo";
 import { AppButton } from "../ui/AppButton";
 import { UserSocials } from "./UserSocials";
+import { useModalsContext } from "../../context/ModalsContext";
 
 interface FrontPageComponentProps {
   cardData: Card;
 }
 
 export const FrontPageComponent = ({ cardData }: FrontPageComponentProps) => {
+  const { openQrModal } = useModalsContext();
+
+  function qrCodeClickHandler() {
+    if (cardData.nfc_card?.link) {
+      openQrModal(cardData.nfc_card?.link);
+    }
+  }
+
   return (
     <div>
       <div className="px-4">
-        <UserCard data={cardData} />
+        <UserCard data={cardData} onQrCodeClick={qrCodeClickHandler} />
       </div>
       <div className="px-4">
         <UserMainInfo
