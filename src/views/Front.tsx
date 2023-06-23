@@ -6,7 +6,10 @@ import { FrontPageLoader } from "../components/frontPage/FrontPageLoader";
 
 export const FrontPage = () => {
   const { cardId } = useParams();
-  if (!cardId) return redirect("/");
+  if (!cardId) {
+    redirect("/");
+    return null;
+  }
   const { isLoading, cardData } = useCardData(cardId);
   return (
     <div>

@@ -1,4 +1,5 @@
 import {
+  Outlet,
   Route,
   RouterProvider,
   createBrowserRouter,
@@ -27,9 +28,9 @@ const authRouter = createBrowserRouter(
 
 const publicRouter = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/">
+    <Route path="/" element={<AppLayout />}>
       <Route index element={<Login />} />
-      <Route path="card/:cardId" element={<div>Front page</div>} />
+      <Route path="card/:cardId" element={<FrontPage />} />
     </Route>
   )
 );

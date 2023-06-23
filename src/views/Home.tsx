@@ -8,7 +8,7 @@ import { useModalsContext } from "../context/ModalsContext";
 export const Home = () => {
   const [cards, setCards] = useState<Card[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { openQrModal } = useModalsContext();
+  const { qrModal } = useModalsContext();
 
   async function fetchCards() {
     try {
@@ -42,7 +42,9 @@ export const Home = () => {
             <UserCard
               data={card}
               key={card.id}
-              onQrCodeClick={() => openQrModal(card.nfc_card?.link || "")}
+              onQrCodeClick={() =>
+                qrModal.openQrModal(card.nfc_card?.link || "")
+              }
             />
           ))}
         {isLoading && (

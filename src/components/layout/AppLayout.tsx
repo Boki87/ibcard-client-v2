@@ -9,13 +9,20 @@ import { ReactNode } from "react";
 import { useModalsContext } from "../../context/ModalsContext";
 import { MainMenu } from "../MainMenu";
 import { QRModal } from "../QRModal";
+import { useUserContext } from "../../context/UserContext";
 
 export const AppLayout = () => {
+  const { user } = useUserContext();
+  console.log(user);
   const { openMainMenu } = useModalsContext();
   const location = useLocation();
   return (
     <>
-      <div className="h-full w-full py-16 overflow-auto">
+      <div
+        className={`h-full w-full pt-16 ${
+          user ? "pb-16" : "pb-0"
+        } overflow-auto`}
+      >
         {/* top navigation */}
         <div className="absolute top-0 left-0 w-full h-14 backdrop-blur-md px-4 flex items-center">
           <AppLogo />
@@ -32,7 +39,7 @@ export const AppLayout = () => {
         <Outlet />
 
         {/* bottom nav */}
-        {location.pathname !== "/" && <BottomNav />}
+        {user && location.pathname !== "/" && <BottomNav />}
         {/* bottom nav end */}
       </div>
 

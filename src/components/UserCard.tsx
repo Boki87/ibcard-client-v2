@@ -11,7 +11,7 @@ export const UserCard = ({ data, onQrCodeClick }: UserCardProps) => {
   const cardUid = data.nfc_card?.link.split("/card/")[1];
 
   return (
-    <div className="w-full max-w-lg rounded-2xl my-4 p-4 shadow-xl flex h-[180px] mx-auto bg-white dark:bg-gray-800">
+    <div className="w-full max-w-lg rounded-2xl my-4 p-4 shadow-xl flex h-[180px] mx-auto bg-white dark:bg-gray-800  border border-gray-300 dark:border-gray-400">
       {/* <div className="w-full max-w-lg rounded-2xl border border-gray-300 dark:border-gray-500 my-4 p-4 shadow-xl flex h-[180px] mx-auto bg-white dark:bg-gradient-to-b dark:from-black dark:to-gray-900"> */}
       <Link to={`/card/${cardUid}`} className="flex flex-col flex-1">
         {data.image_path && (

@@ -7,9 +7,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { AppButton } from "./ui/AppButton";
 import { useAuth } from "../hooks/useAuth";
-import { BiExit } from "react-icons/bi";
+import { BiExit, BiLogIn } from "react-icons/bi";
+import { useUserContext } from "../context/UserContext";
 
 export const MainMenu = () => {
+  const { user } = useUserContext();
   const { isMainMenuOpen, closeMainMenu } = useModalsContext();
   const { attemptLogout } = useAuth();
 
@@ -26,7 +28,7 @@ export const MainMenu = () => {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           initial={{ y: 100, opacity: 0 }}
-          className="absolute top-0 left-0 w-full h-full z-30 bg-white dark:bg-gray-700 flex flex-col"
+          className="absolute top-0 left-0 w-full h-full z-30 bg-white dark:bg-gray-900 flex flex-col"
         >
           <div className="h-14 flex justify-end px-4 items-center">
             <button
@@ -65,17 +67,30 @@ export const MainMenu = () => {
               Home
             </Link>
             <div className="flex justify-between w-full">
-              <AppButton
-                onClick={async () => {
-                  await attemptLogout();
-                  navigate("/");
-                  closeMainMenu();
-                }}
-                className="max-w-[120px]"
-              >
-                <BiExit className="rotate-180" />
-                Logout
-              </AppButton>
+              {user ? (
+                <AppButton
+                  onClick={async () => {
+                    await attemptLogout();
+                    navigate("/");
+                    closeMainMenu();
+                  }}
+                  className="max-w-[120px]"
+                >
+                  <BiExit className="rotate-180" />
+                  Logout
+                </AppButton>
+              ) : (
+                <AppButton
+                  onClick={async () => {
+                    navigate("/");
+                    closeMainMenu();
+                  }}
+                  className="max-w-[120px]"
+                >
+                  <BiLogIn />
+                  Login
+                </AppButton>
+              )}
               <div className="flex items-center space-x-3 dark:text-white">
                 <span>Theme</span>
                 <ThemeToggle />

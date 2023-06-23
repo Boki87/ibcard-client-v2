@@ -12,7 +12,6 @@ const infoIcons = {
 
 interface UserMainInfoProps {
   email?: string;
-  website?: string;
   mobile?: string;
   whatsapp?: string;
   viber?: string;
@@ -20,7 +19,6 @@ interface UserMainInfoProps {
 
 export const UserMainInfo = ({
   email,
-  website,
   mobile,
   whatsapp,
   viber,
@@ -30,7 +28,6 @@ export const UserMainInfo = ({
       <div className="grid grid-cols-2 gap-4">
         {email && <UserInfoItem type="email" val={email} />}
         {mobile && <UserInfoItem type="mobile" val={mobile} />}
-        {website && <UserInfoItem type="website" val={website} />}
         {whatsapp && <UserInfoItem type="whatsapp" val={whatsapp} />}
         {viber && <UserInfoItem type="viber" val={viber} />}
       </div>
@@ -39,19 +36,28 @@ export const UserMainInfo = ({
 };
 
 interface UserInfoProps {
-  type: "email" | "website" | "mobile" | "whatsapp" | "viber";
+  type: "email" | "mobile" | "whatsapp" | "viber";
   val: string;
 }
 
 const UserInfoItem = ({ type, val }: UserInfoProps) => {
+  const hrefTemplates = {
+    email: `mailto:`,
+    mobile: `tel:`,
+    whatsapp: `https://api.whatsapp.com/send?phone=`,
+    viber: `viber://add?number=`,
+  };
+
+  const href = hrefTemplates[type] + val;
+
   return (
-    <div className="flex items-center space-x-2">
-      <div className="flex items-center justify-center min-w-[32px] min-h-[32px] rounded-full border border-gray-400 dark:border-gray-400 text-gray-700 dark:text-gray-300 bg-slate-100 dark:bg-slate-700">
+    <a href={href} className="flex items-center space-x-2">
+      <div className="flex items-center justify-center min-w-[32px] min-h-[32px] rounded-lg border border-gray-400 dark:border-gray-400 text-gray-700 dark:text-gray-300 bg-slate-100 dark:bg-slate-700">
         {infoIcons[type]}
       </div>
       <span className="text-xs text-gray-700 dark:text-gray-200 truncate">
         {val}
       </span>
-    </div>
+    </a>
   );
 };

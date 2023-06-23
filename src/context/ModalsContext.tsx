@@ -1,29 +1,29 @@
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-} from "react";
+import { ReactNode, createContext, useContext, useState } from "react";
 
-interface IModalsContext {
-  isMainMenuOpen: boolean;
-  openMainMenu: () => void;
-  closeMainMenu: () => void;
+interface IQRModal {
   isQrModalOpen: boolean;
   qrCodeUrl: string;
   openQrModal: (url: string) => void;
   closeQrModal: () => void;
 }
 
+interface IModalsContext {
+  isMainMenuOpen: boolean;
+  openMainMenu: () => void;
+  closeMainMenu: () => void;
+  qrModal: IQRModal;
+}
+
 const initialState: IModalsContext = {
   isMainMenuOpen: false,
   openMainMenu: () => {},
   closeMainMenu: () => {},
-  isQrModalOpen: false,
-  qrCodeUrl: "",
-  openQrModal: () => {},
-  closeQrModal: () => {},
+  qrModal: {
+    isQrModalOpen: false,
+    qrCodeUrl: "",
+    openQrModal: () => {},
+    closeQrModal: () => {},
+  },
 };
 
 const ModalsContext = createContext(initialState);
@@ -38,13 +38,13 @@ export default function ModalsContextProvider({
   const [isQrModalOpen, setIsQrModalOpen] = useState(false);
   const [qrCodeUrl, setQrCodeUrl] = useState("");
 
+  // QR Modal functions
   function openMainMenu() {
     setIsMainMenuOpen(true);
   }
   function closeMainMenu() {
     setIsMainMenuOpen(false);
   }
-
   function openQrModal(url: string) {
     setQrCodeUrl(url);
     setIsQrModalOpen(true);
@@ -53,6 +53,7 @@ export default function ModalsContextProvider({
     setQrCodeUrl("");
     setIsQrModalOpen(false);
   }
+  // QR Modal functions --END
 
   return (
     <ModalsContext.Provider
@@ -60,10 +61,12 @@ export default function ModalsContextProvider({
         isMainMenuOpen,
         openMainMenu,
         closeMainMenu,
-        isQrModalOpen,
-        qrCodeUrl,
-        openQrModal,
-        closeQrModal,
+        qrModal: {
+          isQrModalOpen,
+          qrCodeUrl,
+          openQrModal,
+          closeQrModal,
+        },
       }}
     >
       {children}
