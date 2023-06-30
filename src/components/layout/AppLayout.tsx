@@ -13,14 +13,13 @@ import { useUserContext } from "../../context/UserContext";
 
 export const AppLayout = () => {
   const { user } = useUserContext();
-  console.log(user);
   const { openMainMenu } = useModalsContext();
   const location = useLocation();
   return (
     <>
       <div
-        className={`h-full w-full pt-16 ${
-          user ? "pb-16" : "pb-0"
+        className={`h-full w-full ${
+          user || location.pathname !== "/" ? "pb-16 pt-16" : "pb-0 pt-0"
         } overflow-auto`}
       >
         {/* top navigation */}
