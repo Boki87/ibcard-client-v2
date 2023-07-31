@@ -4,7 +4,7 @@ import { combineCss } from "../../lib/utils";
 
 interface IButton {
   children: ReactNode;
-  loading?: boolean;
+  isLoading?: boolean;
   variant?: "blue" | "gray";
   [x: string]: any;
 }
@@ -16,7 +16,7 @@ const variants = {
 
 export const AppButton = ({
   children,
-  loading,
+  isLoading,
   className,
   variant = "blue",
   ...props
@@ -30,10 +30,10 @@ export const AppButton = ({
         variantStyles,
         className
       )}
-      disabled={loading ? true : false}
+      disabled={isLoading ? true : false}
       {...props}
     >
-      {loading ? <CgSpinnerTwoAlt className="animate-spin" /> : children}
+      {isLoading ? <CgSpinnerTwoAlt className="animate-spin" /> : children}
     </button>
   );
 };

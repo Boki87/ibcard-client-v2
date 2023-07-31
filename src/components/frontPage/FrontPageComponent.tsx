@@ -47,10 +47,12 @@ export const FrontPageComponent = ({ cardData }: FrontPageComponentProps) => {
           <span>Save contact</span>
           <FaSave />
         </AppButton>
-        <AppButton variant="gray">
-          <span>Share back</span>
-          <FaShare style={{ transform: "scaleX(-1)" }} />
-        </AppButton>
+        {cardData.show_shareback ? (
+          <AppButton variant="gray">
+            <span>Share back</span>
+            <FaShare style={{ transform: "scaleX(-1)" }} />
+          </AppButton>
+        ) : null}
       </div>
 
       <div className="bg-slate-100 dark:bg-black dark:bg-opacity-10 p-4 mt-10 py-10">

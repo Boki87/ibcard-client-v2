@@ -55,7 +55,7 @@ export const Login = () => {
               Forgot Password?
             </Link>
           </p>
-          <AppButton type="submit" className="mb-4" loading={isLoading}>
+          <AppButton type="submit" className="mb-4" isLoading={isLoading}>
             LOGIN{" "}
           </AppButton>
           <p className="text-gray-700 dark:text-white text-center mb-8">

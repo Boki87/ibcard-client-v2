@@ -35,7 +35,7 @@ export const AppSelect = ({
   return (
     <div
       className={combineCss(
-        "w-full max-w-lg h-10 border-full overflow-hidden relative rounded-full bg-gray-200 dark:bg-gray-500",
+        "w-full max-w-lg h-10 border-full overflow-hidden relative rounded-full bg-gray-200 dark:bg-gray-500 pr-2",
         leftIconStyles,
         rightIconStyles,
         className

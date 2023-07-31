@@ -23,7 +23,7 @@ export const AppLayout = () => {
         } overflow-auto`}
       >
         {/* top navigation */}
-        <div className="absolute top-0 left-0 w-full h-14 backdrop-blur-md px-4 flex items-center">
+        <div className="absolute top-0 left-0 w-full h-14 backdrop-blur-md px-4 flex items-center z-10">
           <AppLogo />
           <div className="flex-1"></div>
           <button
