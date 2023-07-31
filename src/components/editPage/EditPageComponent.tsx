@@ -14,6 +14,7 @@ import { CgSpinner } from "react-icons/cg";
 import { uploadAvatar } from "../../lib/utils";
 import { SocialsEditWidget } from "./editSicials/SocialsEditWidget";
 import { useParams } from "react-router-dom";
+import { VideosEditWidget } from "./editVideos/VideosEditWidget";
 
 interface EditPageComponentProps {
   cardData: Card;
@@ -185,6 +186,12 @@ export const EditPageComponent = ({ cardData }: EditPageComponentProps) => {
       />
 
       <SocialsEditWidget
+        initialSocials={initialCardData.social_links ?? []}
+        cardId={initialCardData.id}
+        onUpdate={refetchCardData}
+      />
+
+      <VideosEditWidget
         initialSocials={initialCardData.social_links ?? []}
         cardId={initialCardData.id}
         onUpdate={refetchCardData}
