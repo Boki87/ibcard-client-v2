@@ -32,9 +32,11 @@ export const SocialsEditModal = ({
   );
 
   const commonSocials = useMemo(() => {
-    return socialLinks.filter(
-      (s) => !["catalogue", "flyer", "video"].includes(s.type)
-    );
+    return socialLinks
+      .filter((s) => !["catalogue", "special_offer", "video"].includes(s.type))
+      .sort((a, b) => {
+        return a.is_active === b.is_active ? 0 : a.is_active ? -1 : 1;
+      });
   }, [socialLinks]);
 
   async function fetchSocialLinks() {
@@ -119,31 +121,36 @@ export const SocialsEditModal = ({
               No socials added yet
             </div>
           ) : (
-            <div
-              className="grid grid-cols-3 gap-4 max-w-xs mx-auto mb-10"
-              onClick={(e: SyntheticEvent) => e.stopPropagation()}
-            >
-              {!isLoading &&
-                commonSocials.map((link) => (
-                  <div
-                    className={`flex justify-center ${
-                      link.is_active ? "opacity-100" : "opacity-50"
-                    }`}
-                    key={link.id}
-                  >
-                    <SocialIcon
-                      onClick={() => {
-                        setActiveSocial(link.id);
-                        setIsEditorOpen(true);
-                      }}
-                      url={link.url ?? ""}
-                      type={link.type}
-                      title={link.title}
+            <>
+              <div className="px-8 my-4 text-gray-700 dark:text-gray-200">
+                Click on icon to edit
+              </div>
+              <div
+                className="grid grid-cols-3 gap-4 max-w-xs mx-auto mb-6"
+                onClick={(e: SyntheticEvent) => e.stopPropagation()}
+              >
+                {!isLoading &&
+                  commonSocials.map((link) => (
+                    <div
+                      className={`flex justify-center ${
+                        link.is_active ? "opacity-100" : "opacity-50"
+                      }`}
                       key={link.id}
-                    />
-                  </div>
-                ))}
-            </div>
+                    >
+                      <SocialIcon
+                        onClick={() => {
+                          setActiveSocial(link.id);
+                          setIsEditorOpen(true);
+                        }}
+                        url={link.url ?? ""}
+                        type={link.type}
+                        title={link.title}
+                        key={link.id}
+                      />
+                    </div>
+                  ))}
+              </div>
+            </>
           )}
           <div className="flex justify-center items-center">
             <AppButton

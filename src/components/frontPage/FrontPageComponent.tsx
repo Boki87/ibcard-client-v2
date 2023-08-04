@@ -1,6 +1,5 @@
 import { Card } from "../../types/Card";
 import { UserCard } from "./UserCard";
-import { BsChevronRight } from "react-icons/bs";
 import { UserMainInfo } from "./UserMainInfo";
 import { AppButton } from "../ui/AppButton";
 import { UserSocials } from "./UserSocials";
@@ -11,6 +10,8 @@ import { useState } from "react";
 import { CompanyInfoModal } from "../CompanyInfoModal";
 import { PortfolioModal } from "../PortfolioModal";
 import { saveVcf } from "../../lib/vcf";
+import { UserOffers } from "./UserOffers";
+import { UserCatalogues } from "./UserCatalogues";
 
 interface FrontPageComponentProps {
   cardData: Card;
@@ -55,9 +56,9 @@ export const FrontPageComponent = ({ cardData }: FrontPageComponentProps) => {
         ) : null}
       </div>
 
-      <div className="bg-slate-100 dark:bg-black dark:bg-opacity-10 p-4 mt-10 py-10">
-        {/* <AppButton variant="gray">Company portal</AppButton> */}
-        <div className="grid grid-cols-3">
+      <div className="bg-slate-100 dark:bg-black dark:bg-opacity-10 p-4 mt-10 py-4">
+        {/* TODO: figure out the below sections */}
+        {/* <div className="grid grid-cols-3">
           <p
             onClick={() => setShowAboutMe(true)}
             className="text-sm flex items-center space-x-1 text-gray-700 dark:text-gray-200 justify-center hover:underline cursor-pointer"
@@ -79,9 +80,11 @@ export const FrontPageComponent = ({ cardData }: FrontPageComponentProps) => {
             <span>Portfolio</span>
             <BsChevronRight />
           </p>
-        </div>
+        </div> */}
 
         <UserSocials socials={cardData.social_links || []} />
+        <UserCatalogues socials={cardData.social_links || []} />
+        <UserOffers socials={cardData.social_links || []} />
       </div>
       <AboutMeModal
         isOpen={showAboutMe}

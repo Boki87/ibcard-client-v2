@@ -3,23 +3,23 @@ import { VscAdd } from "react-icons/vsc";
 import { useMemo, useState } from "react";
 import { SocialLink } from "../../../types/SocialLink";
 import { AnimatePresence } from "framer-motion";
-import { VideosEditModal } from "./VideosEditModal";
+import { CatalogueEditModal } from "./CatalogueEditModal";
 
-interface VideosEditWidgetProps {
+interface CatalogueEditWidgetProps {
   initialSocials: SocialLink[];
   cardId: number;
   onUpdate?: () => void;
 }
 
-export const VideosEditWidget = ({
+export const CatalogueEditWidget = ({
   initialSocials,
   cardId,
   onUpdate,
-}: VideosEditWidgetProps) => {
+}: CatalogueEditWidgetProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const videos = useMemo(() => {
-    return initialSocials.filter((s) => ["video"].includes(s.type));
+  const offers = useMemo(() => {
+    return initialSocials.filter((s) => ["special_offer"].includes(s.type));
   }, [initialSocials]);
 
   function refreshSocials() {
@@ -34,15 +34,15 @@ export const VideosEditWidget = ({
       >
         <div className="flex flex-col flex-1">
           <span className="text-gray-800 text-xl font-bold dark:text-white">
-            Add & edit videos
+            Add & edit catalogues
           </span>
-          {videos.length > 0 ? (
+          {offers.length > 0 ? (
             <span className="text-gray-500 dark:text-gray-400">
-              You have {videos.length} video{videos.length > 1 ? "s" : ""} added
+              You have {offers.length} offer{offers.length > 1 ? "s" : ""} added
             </span>
           ) : (
             <span className="text-gray-500 dark:text-gray-400">
-              No videos added
+              No catalogues added
             </span>
           )}
         </div>
@@ -52,7 +52,7 @@ export const VideosEditWidget = ({
       </div>
       <AnimatePresence>
         {isModalOpen && (
-          <VideosEditModal
+          <CatalogueEditModal
             onClose={() => {
               setIsModalOpen(false);
               refreshSocials();

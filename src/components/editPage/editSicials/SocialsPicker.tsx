@@ -11,7 +11,7 @@ interface SocialsPickerProps {
 }
 
 const COMMON_ICONS = SOCIAL_ICONS.filter((i) => {
-  if (!["video", "flyer", "catalogue"].includes(i.type)) {
+  if (!["video", "special_offer", "catalogue"].includes(i.type)) {
     return i;
   }
 });

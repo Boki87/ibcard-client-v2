@@ -27,10 +27,10 @@ export const QRModal = () => {
             <div className="flex justify-center">
               <AppLogo className="h-8" />
             </div>
-            <div className="aspect-square rounded-xl p-2 bg-white w-[150px] h-[150px]">
+            <div className="aspect-square rounded-xl p-2 bg-white w-[200px] h-[200px]">
               <img
                 className=""
-                src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrModal.qrCodeUrl}`}
+                src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${qrModal.qrCodeUrl}`}
               />
             </div>
           </div>

@@ -10,21 +10,20 @@ import { MdOutlineTitle } from "react-icons/md";
 import { FaLink, FaSave, FaTrash } from "react-icons/fa";
 import { AppButton } from "../../ui/AppButton";
 import { AppToggle } from "../../ui/AppToggle";
-import { BsFillCollectionPlayFill } from "react-icons/bs";
 
-interface VideoEditorProps {
+interface CatalogueEditorProps {
   onClose: () => void;
   socialId: number | null;
   onUpdate: (social: SocialLink) => void;
   onDelete: (socialId: number) => void;
 }
 
-export const VideoEditor = ({
+export const CatalogueEditor = ({
   onClose,
   socialId,
   onUpdate,
   onDelete,
-}: VideoEditorProps) => {
+}: CatalogueEditorProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
@@ -109,7 +108,10 @@ export const VideoEditor = ({
         ) : (
           <>
             <div className="mb-8">
-              <SocialIcon type={socialData?.type ?? "custom_url"} />
+              <SocialIcon
+                type={socialData?.type ?? "custom_url"}
+                title={socialData?.title ?? ""}
+              />
             </div>
 
             <AppInput
@@ -126,9 +128,9 @@ export const VideoEditor = ({
             />
             <AppInput
               value={socialData?.url ?? ""}
-              placeholder="Video URL"
-              leftIcon={<BsFillCollectionPlayFill />}
-              className="mb-4"
+              placeholder="URL to offer"
+              leftIcon={<FaLink />}
+              className="mb-0"
               onChange={(e: SyntheticEvent) => {
                 const input = e.target as HTMLInputElement;
                 setSocialData((prev) => {
@@ -136,18 +138,7 @@ export const VideoEditor = ({
                 });
               }}
             />
-            <AppInput
-              value={socialData?.cta ?? ""}
-              placeholder="Call to action url"
-              leftIcon={<FaLink />}
-              className="mb-4"
-              onChange={(e: SyntheticEvent) => {
-                const input = e.target as HTMLInputElement;
-                setSocialData((prev) => {
-                  return { ...prev, cta: input.value };
-                });
-              }}
-            />
+            <p className="mb-4">Provide a link to your offer.</p>
 
             <div className="flex space-x-2 mb-4">
               <span>Is active</span>

@@ -15,6 +15,8 @@ import { uploadAvatar } from "../../lib/utils";
 import { SocialsEditWidget } from "./editSicials/SocialsEditWidget";
 import { useParams } from "react-router-dom";
 import { VideosEditWidget } from "./editVideos/VideosEditWidget";
+import { OffersEditWidget } from "./editOffers/OffersEditWidget";
+import { CatalogueEditWidget } from "./editCatalouges/CatalogueEditWidget";
 
 interface EditPageComponentProps {
   cardData: Card;
@@ -192,6 +194,18 @@ export const EditPageComponent = ({ cardData }: EditPageComponentProps) => {
       />
 
       <VideosEditWidget
+        initialSocials={initialCardData.social_links ?? []}
+        cardId={initialCardData.id}
+        onUpdate={refetchCardData}
+      />
+
+      <OffersEditWidget
+        initialSocials={initialCardData.social_links ?? []}
+        cardId={initialCardData.id}
+        onUpdate={refetchCardData}
+      />
+
+      <CatalogueEditWidget
         initialSocials={initialCardData.social_links ?? []}
         cardId={initialCardData.id}
         onUpdate={refetchCardData}

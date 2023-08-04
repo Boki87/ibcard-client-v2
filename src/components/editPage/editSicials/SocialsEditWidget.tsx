@@ -19,7 +19,7 @@ export const SocialsEditWidget = ({
 
   const commonSocials = useMemo(() => {
     return initialSocials.filter(
-      (s) => !["catalogue", "flyer", "video"].includes(s.type)
+      (s) => !["catalogue", "special_offer", "video"].includes(s.type)
     );
   }, [initialSocials]);
 

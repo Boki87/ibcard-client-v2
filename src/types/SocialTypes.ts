@@ -11,5 +11,5 @@ export type SocialType =
   | "tiktok"
   | "custom_url"
   | "video"
-  | "flyer"
+  | "special_offer"
   | "catalogue";

@@ -2,24 +2,27 @@ import { SocialLink } from "../../../types/SocialLink";
 import { SocialIcon } from "../../SocialIcon";
 import { AppButton } from "../../ui/AppButton";
 import { SyntheticEvent, useEffect, useMemo, useState } from "react";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaSpinner } from "react-icons/fa";
+// import { SocialsPicker } from "./SocialsPicker";
 import { AnimatePresence, motion } from "framer-motion";
 import { IoCloseOutline } from "react-icons/io5";
 import { CgSpinner } from "react-icons/cg";
+import { SocialType } from "../../../types/SocialTypes";
+// import { SocialsEditor } from "./SocialsEditor";
 import { api } from "../../../api";
-import { VideoEditor } from "./VideoEditor";
+import { VideoEditor as OffersEditor } from "./OffersEditor";
 
-interface VideosEditModalProps {
+interface OffersEditModalProps {
   onClose: () => void;
   cardId: number;
   initialSocials?: SocialLink[];
 }
 
-export const VideosEditModal = ({
+export const OffersEditModal = ({
   onClose,
   cardId,
   initialSocials,
-}: VideosEditModalProps) => {
+}: OffersEditModalProps) => {
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [activeSocial, setActiveSocial] = useState<number | null>(null);
 
@@ -29,9 +32,9 @@ export const VideosEditModal = ({
     initialSocials || []
   );
 
-  const videos = useMemo(() => {
+  const offers = useMemo(() => {
     return socialLinks
-      .filter((s) => ["video"].includes(s.type))
+      .filter((s) => ["special_offer"].includes(s.type))
       .sort((a, b) => {
         return a.is_active === b.is_active ? 0 : a.is_active ? -1 : 1;
       });
@@ -52,7 +55,12 @@ export const VideosEditModal = ({
   async function addSocial() {
     const res = await api.post(
       `/api/social-links/card/${cardId}`,
-      JSON.stringify({ type: "video", title: "", is_active: true, url: "" })
+      JSON.stringify({
+        type: "special_offer",
+        title: "",
+        is_active: true,
+        url: "",
+      })
     );
     setSocialLinks((prev) => {
       return [...prev, res.data];
@@ -116,9 +124,9 @@ export const VideosEditModal = ({
               <CgSpinner className="animate-spin text-3xl" />
             </div>
           )}
-          {!isLoading && videos.length === 0 ? (
+          {!isLoading && offers.length === 0 ? (
             <div className="mb-10 text-lg font-bold text-center">
-              No videos added yet
+              No offers added yet
             </div>
           ) : (
             <>
@@ -126,11 +134,11 @@ export const VideosEditModal = ({
                 Click on icon to edit
               </div>
               <div
-                className="grid grid-cols-3 gap-4 max-w-xs mx-auto mb-10"
+                className="grid grid-cols-3 gap-4 max-w-xs mx-auto mb-6"
                 onClick={(e: SyntheticEvent) => e.stopPropagation()}
               >
                 {!isLoading &&
-                  videos.map((link) => (
+                  offers.map((link) => (
                     <div
                       className={`flex justify-center ${
                         link.is_active ? "opacity-100" : "opacity-50"
@@ -168,7 +176,7 @@ export const VideosEditModal = ({
 
         <AnimatePresence>
           {isEditorOpen && (
-            <VideoEditor
+            <OffersEditor
               onUpdate={socialsUpdateHandler}
               onClose={() => setIsEditorOpen(false)}
               onDelete={socialDeleteHandler}

@@ -109,7 +109,10 @@ export const VideoEditor = ({
         ) : (
           <>
             <div className="mb-8">
-              <SocialIcon type={socialData?.type ?? "custom_url"} />
+              <SocialIcon
+                type={socialData?.type ?? "custom_url"}
+                title={socialData?.title ?? ""}
+              />
             </div>
 
             <AppInput
@@ -126,9 +129,9 @@ export const VideoEditor = ({
             />
             <AppInput
               value={socialData?.url ?? ""}
-              placeholder="Video URL"
-              leftIcon={<BsFillCollectionPlayFill />}
-              className="mb-4"
+              placeholder="URL to offer"
+              leftIcon={<FaLink />}
+              className="mb-0"
               onChange={(e: SyntheticEvent) => {
                 const input = e.target as HTMLInputElement;
                 setSocialData((prev) => {
@@ -136,18 +139,7 @@ export const VideoEditor = ({
                 });
               }}
             />
-            <AppInput
-              value={socialData?.cta ?? ""}
-              placeholder="Call to action url"
-              leftIcon={<FaLink />}
-              className="mb-4"
-              onChange={(e: SyntheticEvent) => {
-                const input = e.target as HTMLInputElement;
-                setSocialData((prev) => {
-                  return { ...prev, cta: input.value };
-                });
-              }}
-            />
+            <p className="mb-4">Provide a link to your offer.</p>
 
             <div className="flex space-x-2 mb-4">
               <span>Is active</span>

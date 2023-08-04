@@ -11,8 +11,9 @@ import {
   FaTiktok,
   FaLink,
   FaYoutube,
+  FaBook,
 } from "react-icons/fa";
-import { GrDocument, GrCatalog } from "react-icons/gr";
+import { GrDocument } from "react-icons/gr";
 
 interface SocialIcon {
   type: SocialType;
@@ -65,11 +66,11 @@ export const SOCIAL_ICONS: SocialIcon[] = [
     icon: <FaYoutube />,
   },
   {
-    type: "flyer",
+    type: "special_offer",
     icon: <GrDocument />,
   },
   {
     type: "catalogue",
-    icon: <GrCatalog />,
+    icon: <FaBook />,
   },
 ];

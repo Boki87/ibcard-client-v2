@@ -7,19 +7,19 @@ import { AnimatePresence, motion } from "framer-motion";
 import { IoCloseOutline } from "react-icons/io5";
 import { CgSpinner } from "react-icons/cg";
 import { api } from "../../../api";
-import { VideoEditor } from "./VideoEditor";
+import { CatalogueEditor } from "./CatalogueEditor";
 
-interface VideosEditModalProps {
+interface CatalogueEditModalProps {
   onClose: () => void;
   cardId: number;
   initialSocials?: SocialLink[];
 }
 
-export const VideosEditModal = ({
+export const CatalogueEditModal = ({
   onClose,
   cardId,
   initialSocials,
-}: VideosEditModalProps) => {
+}: CatalogueEditModalProps) => {
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [activeSocial, setActiveSocial] = useState<number | null>(null);
 
@@ -29,9 +29,9 @@ export const VideosEditModal = ({
     initialSocials || []
   );
 
-  const videos = useMemo(() => {
+  const offers = useMemo(() => {
     return socialLinks
-      .filter((s) => ["video"].includes(s.type))
+      .filter((s) => ["catalogue"].includes(s.type))
       .sort((a, b) => {
         return a.is_active === b.is_active ? 0 : a.is_active ? -1 : 1;
       });
@@ -52,7 +52,12 @@ export const VideosEditModal = ({
   async function addSocial() {
     const res = await api.post(
       `/api/social-links/card/${cardId}`,
-      JSON.stringify({ type: "video", title: "", is_active: true, url: "" })
+      JSON.stringify({
+        type: "catalogue",
+        title: "",
+        is_active: true,
+        url: "",
+      })
     );
     setSocialLinks((prev) => {
       return [...prev, res.data];
@@ -116,9 +121,9 @@ export const VideosEditModal = ({
               <CgSpinner className="animate-spin text-3xl" />
             </div>
           )}
-          {!isLoading && videos.length === 0 ? (
+          {!isLoading && offers.length === 0 ? (
             <div className="mb-10 text-lg font-bold text-center">
-              No videos added yet
+              No catalogues added yet
             </div>
           ) : (
             <>
@@ -130,7 +135,7 @@ export const VideosEditModal = ({
                 onClick={(e: SyntheticEvent) => e.stopPropagation()}
               >
                 {!isLoading &&
-                  videos.map((link) => (
+                  offers.map((link) => (
                     <div
                       className={`flex justify-center ${
                         link.is_active ? "opacity-100" : "opacity-50"
@@ -168,7 +173,7 @@ export const VideosEditModal = ({
 
         <AnimatePresence>
           {isEditorOpen && (
-            <VideoEditor
+            <CatalogueEditor
               onUpdate={socialsUpdateHandler}
               onClose={() => setIsEditorOpen(false)}
               onDelete={socialDeleteHandler}

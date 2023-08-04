@@ -24,18 +24,28 @@ export const SocialIcon = ({ type, title, ...props }: SocialIconProps) => {
       title={title ? title : formatTypeTitle(type)}
     >
       <div className="flex items-center justify-center">
-        <div className="w-20 h-20 flex items-center justify-center bg-gradient-to-tr from-slate-400 to-white rounded-xl text-3xl text-gray-700 dark:from-black dark:to-slate-600 dark:text-gray-200">
-          {icon.icon}
+        {type === "special_offer" ? (
+          <div className="w-20 h-20 flex items-center justify-center bg-gradient-to-tr from-blue-900 to-blue-600 rounded-xl text-xs break-all text-gray-100 truncate">
+            <div className="truncate">
+              {!title || title === "" ? "Special Offer" : title}
+            </div>
+          </div>
+        ) : (
+          <div className="w-20 h-20 flex items-center justify-center bg-gradient-to-tr from-slate-400 to-white rounded-xl text-3xl text-gray-700 dark:from-black dark:to-slate-600 dark:text-gray-200">
+            {icon.icon}
+          </div>
+        )}
+      </div>
+      {type !== "special_offer" && (
+        <div className="flex justify-center">
+          <p
+            className="text-sm text-gray-700 truncate dark:text-gray-200 capitalize"
+            title={title ? title : formatTypeTitle(type)}
+          >
+            {title ? title : formatTypeTitle(type)}
+          </p>
         </div>
-      </div>
-      <div className="flex justify-center">
-        <p
-          className="text-sm text-gray-700 truncate dark:text-gray-200 capitalize"
-          title={title ? title : formatTypeTitle(type)}
-        >
-          {title ? title : formatTypeTitle(type)}
-        </p>
-      </div>
+      )}
     </div>
   );
 };
