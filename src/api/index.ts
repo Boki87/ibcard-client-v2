@@ -2,7 +2,7 @@ import axios from "axios";
 
 let baseUrl = import.meta.env.DEV
   ? "http://127.0.0.1:8000"
-  : "https://ibcards-api.com";
+  : "http://157.230.107.80";
 
 const api = axios.create({
   baseURL: baseUrl, // `https://ibcards-api-a4v5r.ondigitalocean.app`,
