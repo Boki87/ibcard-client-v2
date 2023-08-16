@@ -37,8 +37,10 @@ export type Card = {
   whatsapp?: string;
   viber?: string;
 
-  department_id?: number;
-  department?: Department;
+  // department_id?: number;
+  // department?: Department;
+
+  department?: string;
 
   qr_code_path?: string;
   video_cta?: string;

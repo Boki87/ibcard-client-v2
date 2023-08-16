@@ -13,6 +13,7 @@ import { api } from "./api";
 import { AppLayout } from "./components/layout/AppLayout";
 import { FrontPage } from "./views/Front";
 import { EditPage } from "./views/Edit";
+import { CompanyPortal } from "./views/CompanyPortal";
 
 const authRouter = createBrowserRouter(
   createRoutesFromElements(
@@ -22,7 +23,7 @@ const authRouter = createBrowserRouter(
       <Route path="card/:cardId" element={<FrontPage />} />
       <Route path="card/:cardId/edit" element={<EditPage />} />
       <Route path="card/:cardId/stats" element={<div>Stats page</div>} />
-      <Route path="card/:cardId/portal" element={<div>portal page</div>} />
+      <Route path="card/:cardId/portal" element={<CompanyPortal />} />
     </Route>
   )
 );
