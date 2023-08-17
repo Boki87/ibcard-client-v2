@@ -1,6 +1,8 @@
 import axios from "axios";
 
-let baseUrl = import.meta.env.DEV
+const webAppUrl = import.meta.env.DEV ? "http://localhost:5173" : "";
+
+const baseUrl = import.meta.env.DEV
   ? "http://127.0.0.1:8000"
   : "http://157.230.107.80";
 
@@ -32,4 +34,4 @@ api.interceptors.request.use(
   }
 );
 
-export { api, baseUrl };
+export { api, baseUrl, webAppUrl };

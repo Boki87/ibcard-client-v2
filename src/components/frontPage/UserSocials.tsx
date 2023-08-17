@@ -29,7 +29,8 @@ export const UserSocials = ({ socials }: UserSocialsProps) => {
 
   return (
     <div className="mt-6 mb-6">
-      {videos && videos.map((video) => <VideoThumb video={video} />)}
+      {videos &&
+        videos.map((video) => <VideoThumb video={video} key={video.id} />)}
       <div className="grid grid-cols-3 gap-4 max-w-xs mx-auto">
         {commonSocials.map((social) => (
           <div className="flex justify-center" key={social.id}>

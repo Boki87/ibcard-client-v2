@@ -10,6 +10,7 @@ import { useModalsContext } from "../../context/ModalsContext";
 import { MainMenu } from "../MainMenu";
 import { QRModal } from "../QRModal";
 import { useUserContext } from "../../context/UserContext";
+import { useCardData } from "../../hooks/useCardData";
 
 export const AppLayout = () => {
   const { user } = useUserContext();
@@ -18,8 +19,9 @@ export const AppLayout = () => {
   return (
     <>
       <div
+        id="app-wrapper"
         className={`h-full w-full ${
-          user || location.pathname !== "/" ? "pb-16 pt-16" : "pb-0 pt-0"
+          user || location.pathname !== "/" ? "pb-16 pt-14" : "pb-0 pt-0"
         } overflow-auto`}
       >
         {/* top navigation */}
@@ -49,7 +51,14 @@ export const AppLayout = () => {
 };
 
 const BottomNav = () => {
+  const { user } = useUserContext();
   const { cardId } = useParams();
+  const { cardData, isLoading } = useCardData(cardId);
+
+  if (isLoading || !cardData) return null;
+
+  if (user.id !== cardData.user_id) return null;
+
   return (
     <div className="absolute bottom-0 left-0 w-full h-14 backdrop-blur bg-white/60 dark:bg-black/40 flex items-center justify-around px-4">
       <BottomNavLink to="/">

@@ -38,7 +38,7 @@ export const AlphaPicker = ({ onChange, selectedLetter }: AlphaPickerProps) => {
   ];
 
   return (
-    <div className="overflow-hidden overflow-x-auto h-10">
+    <div className="overflow-hidden overflow-x-auto h-10 sticky top-0 bg-white dark:bg-gray-900 z-10 px-4">
       <div className="flex h-full space-x-1">
         {alphabet.map((letter, i) => (
           <PickerLetter
@@ -74,10 +74,10 @@ const PickerLetter = ({
   let letterStyles = "";
   if (isSelected) {
     letterStyles =
-      "h-full flex items-center justify-center min-w-[15px] uppercase text-xl dark:text-white";
+      "h-full flex items-center justify-center min-w-[15px] uppercase text-xl text-black dark:text-gray-300 font-bold";
   } else {
     letterStyles =
-      "h-full flex items-center justify-center min-w-[15px] uppercase text-xl dark:text-gray-500";
+      "h-full flex items-center justify-center min-w-[15px] uppercase text-xl text-gray-500";
   }
   return (
     <div className={letterStyles} {...props}>
