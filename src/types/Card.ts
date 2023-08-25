@@ -6,6 +6,7 @@ import { SocialLink } from "./SocialLink";
 export type Card = {
   id: number;
   user_id: number;
+  customer_id?: number;
   is_sent?: number;
   sent_at?: string;
   is_setup?: number;

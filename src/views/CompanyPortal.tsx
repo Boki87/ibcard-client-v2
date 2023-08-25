@@ -63,19 +63,6 @@ export const CompanyPortal = () => {
         top: scrollOffset - 100,
         behavior: "smooth",
       });
-      // let elPosition = matchingEmployeeCard.getBoundingClientRect().top;
-      // let offsetPosition = elPosition + window.scrollY - 100;
-      // console.log(offsetPosition);
-      // containerEl.scrollTo({
-      //   top: offsetPosition,
-      //   behavior: "smooth",
-      // });
-      // matchingEmployeeCard.scrollIntoView({
-      //   behavior: "smooth",
-      //   block: "start",
-      //   inline: "nearest",
-      // });
-      // window.scrollBy(0, -300);
     }
   }
 

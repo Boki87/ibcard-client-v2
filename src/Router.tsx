@@ -1,4 +1,5 @@
 import {
+  Navigate,
   Outlet,
   Route,
   RouterProvider,
@@ -17,7 +18,7 @@ import { CompanyPortal } from "./views/CompanyPortal";
 
 const authRouter = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<AppLayout />}>
+    <Route path="/" element={<AppLayout />} errorElement={<Navigate to="/" />}>
       <Route index element={<Home />} />
       <Route path="login" element={<Login />} />
       <Route path="card/:cardId" element={<FrontPage />} />
