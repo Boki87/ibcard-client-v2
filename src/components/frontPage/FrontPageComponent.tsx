@@ -12,6 +12,7 @@ import { PortfolioModal } from "../PortfolioModal";
 import { saveVcf } from "../../lib/vcf";
 import { UserOffers } from "./UserOffers";
 import { UserCatalogues } from "./UserCatalogues";
+import { ShareBackModal } from "../ShareBackModal";
 
 interface FrontPageComponentProps {
   cardData: Card;
@@ -22,6 +23,7 @@ export const FrontPageComponent = ({ cardData }: FrontPageComponentProps) => {
   const [showAboutMe, setShowAboutMe] = useState(false);
   const [showCompanyInfo, setShowCompanyInfo] = useState(false);
   const [showPortfolio, setShowPortfolio] = useState(false);
+  const [showShareBack, setShowShareBack] = useState(false);
 
   function qrCodeClickHandler() {
     if (cardData.nfc_card?.link) {
@@ -49,7 +51,7 @@ export const FrontPageComponent = ({ cardData }: FrontPageComponentProps) => {
           <FaSave />
         </AppButton>
         {cardData.show_shareback ? (
-          <AppButton variant="gray">
+          <AppButton onClick={() => setShowShareBack(true)} variant="gray">
             <span>Share back</span>
             <FaShare style={{ transform: "scaleX(-1)" }} />
           </AppButton>
@@ -57,31 +59,6 @@ export const FrontPageComponent = ({ cardData }: FrontPageComponentProps) => {
       </div>
 
       <div className="bg-slate-100 dark:bg-black dark:bg-opacity-10 p-4 mt-10 py-4">
-        {/* TODO: figure out the below sections */}
-        {/* <div className="grid grid-cols-3">
-          <p
-            onClick={() => setShowAboutMe(true)}
-            className="text-sm flex items-center space-x-1 text-gray-700 dark:text-gray-200 justify-center hover:underline cursor-pointer"
-          >
-            <span>About me</span>
-            <BsChevronRight />
-          </p>
-          <p
-            onClick={() => setShowCompanyInfo(true)}
-            className="text-sm flex items-center space-x-1 text-gray-700 dark:text-gray-200 justify-center hover:underline cursor-pointer"
-          >
-            <span>Company info</span>
-            <BsChevronRight />
-          </p>
-          <p
-            onClick={() => setShowPortfolio(true)}
-            className="text-sm flex items-center space-x-1 text-gray-700 dark:text-gray-200 justify-center hover:underline cursor-pointer"
-          >
-            <span>Portfolio</span>
-            <BsChevronRight />
-          </p>
-        </div> */}
-
         <UserSocials socials={cardData.social_links || []} />
         <UserCatalogues socials={cardData.social_links || []} />
         <UserOffers socials={cardData.social_links || []} />
@@ -97,6 +74,13 @@ export const FrontPageComponent = ({ cardData }: FrontPageComponentProps) => {
       <PortfolioModal
         isOpen={showPortfolio}
         onClose={() => setShowPortfolio(false)}
+      />
+      <ShareBackModal
+        isOpen={showShareBack}
+        cardDataId={cardData.id.toString()}
+        onClose={() => {
+          setShowShareBack(false);
+        }}
       />
     </div>
   );

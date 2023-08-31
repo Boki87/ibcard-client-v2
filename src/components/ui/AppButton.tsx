@@ -7,6 +7,7 @@ interface IButton {
   isLoading?: boolean;
   variant?: "blue" | "gray";
   [x: string]: any;
+  asDiv?: boolean;
 }
 
 const variants = {
@@ -19,12 +20,15 @@ export const AppButton = ({
   isLoading,
   className,
   variant = "blue",
+  asDiv,
   ...props
 }: IButton): ReactElement => {
   const variantStyles = variants[variant];
 
+  const Comp = asDiv ? "div" : "button";
+
   return (
-    <button
+    <Comp
       className={combineCss(
         `w-full h-10 rounded-xl flex items-center justify-center gap-2 text-lg disabled:cursor-not-allowed`,
         variantStyles,
@@ -34,6 +38,6 @@ export const AppButton = ({
       {...props}
     >
       {isLoading ? <CgSpinnerTwoAlt className="animate-spin" /> : children}
-    </button>
+    </Comp>
   );
 };

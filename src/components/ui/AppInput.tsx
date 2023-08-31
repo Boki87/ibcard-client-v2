@@ -1,12 +1,20 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import React, {
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+  forwardRef,
+  HTMLInputTypeAttribute,
+} from "react";
 import { combineCss } from "../../lib/utils";
 
-interface IInput {
+interface IInput extends React.InputHTMLAttributes<HTMLInputElement> {
   leftIcon?: ReactNode;
   leftIconAction?: () => void;
   rightIcon?: ReactNode;
   rightIconAction?: () => void;
   className?: string;
+  showError?: boolean;
   [x: string]: any;
 }
 
@@ -16,9 +24,10 @@ export const AppInput = ({
   rightIcon,
   rightIconAction,
   className = "",
+  showError,
   ...rest
 }: IInput) => {
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const inputRef = useRef<HTMLInputElement>();
   const [isFocused, setIsFocused] = useState(false);
 
   useEffect(() => {
@@ -28,8 +37,7 @@ export const AppInput = ({
     const handleBlur = () => {
       setIsFocused(false);
     };
-
-    const inputElement = inputRef.current;
+    const inputElement = inputRef?.current;
     if (inputElement) {
       inputElement.addEventListener("focus", handleFocus);
       inputElement.addEventListener("blur", handleBlur);
@@ -47,6 +55,10 @@ export const AppInput = ({
 
   if (isFocused) {
     focusedStyles = "border border-gray-400";
+  }
+
+  if (showError) {
+    focusedStyles = "border border-red-600";
   }
 
   let leftIconStyles = "";

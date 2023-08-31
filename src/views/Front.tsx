@@ -23,8 +23,9 @@ export const FrontPage = () => {
 
   useEffect(() => {
     //collect a page view in the db
+    if (!cardData) return;
     collectView();
-  }, []);
+  }, [cardData]);
   return (
     <div>
       {!isLoading && cardData ? (

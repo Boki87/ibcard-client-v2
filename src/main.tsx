@@ -6,11 +6,9 @@ import "./index.css";
 import ModalsContextProvider from "./context/ModalsContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <UserContextProvider>
-      <ModalsContextProvider>
-        <App />
-      </ModalsContextProvider>
-    </UserContextProvider>
-  </React.StrictMode>
+  <UserContextProvider>
+    <ModalsContextProvider>
+      <App />
+    </ModalsContextProvider>
+  </UserContextProvider>
 );

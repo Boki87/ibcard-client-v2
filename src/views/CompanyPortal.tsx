@@ -136,11 +136,9 @@ export const CompanyPortal = () => {
             className="text-xs"
             name="country"
             onChange={selectChangeHandler}
-            value={queryCountry}
+            defaultValue={""}
           >
-            <option selected value="">
-              Select country
-            </option>
+            <option value="">Select country</option>
             {countries.map((country) => (
               <option value={country.name} key={country.name}>
                 {country.name}
@@ -151,11 +149,9 @@ export const CompanyPortal = () => {
             className="text-xs"
             name="department"
             onChange={selectChangeHandler}
-            value={queryDepartment}
+            defaultValue={""}
           >
-            <option selected value="">
-              Select department
-            </option>
+            <option value="">Select department</option>
             {departments.map((department) => (
               <option value={department} key={department}>
                 {department}
