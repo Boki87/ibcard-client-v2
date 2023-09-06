@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card } from "../types/Card";
 import { api } from "../api";
-import { useDebounceEffect } from "./useDebounceEffect";
 
 export const useEmployees = (
   companyId: number,

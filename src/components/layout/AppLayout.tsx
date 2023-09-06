@@ -12,6 +12,8 @@ import { QRModal } from "../QRModal";
 import { useUserContext } from "../../context/UserContext";
 import { useCardData } from "../../hooks/useCardData";
 
+const dontShowBottomNav = ["/", "/contacts"];
+
 export const AppLayout = () => {
   const { user } = useUserContext();
   const { openMainMenu } = useModalsContext();
@@ -26,7 +28,9 @@ export const AppLayout = () => {
       >
         {/* top navigation */}
         <div className="absolute top-0 left-0 w-full h-14 backdrop-blur-md px-4 flex items-center z-10">
-          <AppLogo />
+          <Link to="/">
+            <AppLogo />
+          </Link>
           <div className="flex-1"></div>
           <button
             onClick={openMainMenu}
@@ -40,7 +44,9 @@ export const AppLayout = () => {
         <Outlet />
 
         {/* bottom nav */}
-        {user && location.pathname !== "/" && <BottomNav />}
+        {user && !dontShowBottomNav.includes(location.pathname) && (
+          <BottomNav />
+        )}
         {/* bottom nav end */}
       </div>
 

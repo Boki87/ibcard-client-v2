@@ -1,24 +1,14 @@
 import { SlRefresh } from "react-icons/sl";
-import { AppButton } from "../components/ui/AppButton";
 import { AppInput } from "../components/ui/AppInput";
 import { FaSearch } from "react-icons/fa";
 import { AppSelect } from "../components/ui/AppSelect";
-import { AlphaPicker } from "../components/companyPortalPage/AlphaPicker";
-import {
-  ChangeEvent,
-  SyntheticEvent,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { AlphaPicker } from "../components/AlphaPicker";
+import { ChangeEvent, useMemo, useRef, useState } from "react";
 import { countries } from "../lib/countries";
 import { departments } from "../lib/departments";
-import { api, webAppUrl } from "../api";
+import { webAppUrl } from "../api";
 import { redirect, useParams } from "react-router-dom";
 import { useCardData } from "../hooks/useCardData";
-import { useDebounceEffect } from "../hooks/useDebounceEffect";
-import { Card } from "../types/Card";
 import { EmployeeCard } from "../components/companyPortalPage/EmployeeCard";
 import { useEmployees } from "../hooks/useEmployees";
 

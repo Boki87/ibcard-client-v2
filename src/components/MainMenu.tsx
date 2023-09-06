@@ -43,6 +43,12 @@ export const MainMenu = () => {
           </div>
           <div className="flex-1 flex flex-col justify-end items-end px-10 py-4">
             <Link
+              to="/contacts"
+              className="my-3 text-2xl font-bold text-gray-800 dark:text-white hover:underline text-right"
+            >
+              Contacts
+            </Link>
+            <Link
               to="/"
               className="my-3 text-2xl font-bold text-gray-800 dark:text-white hover:underline text-right"
             >

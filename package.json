@@ -14,10 +14,12 @@
     "@uidotdev/usehooks": "^2.2.0",
     "axios": "^1.4.0",
     "framer-motion": "^10.12.16",
+    "mapbox-gl": "^2.15.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.45.4",
     "react-icons": "^4.9.0",
+    "react-map-gl": "^7.1.5",
     "react-router-dom": "^6.11.2",
     "vcard-creator": "^0.6.0",
     "zod": "^3.22.2"

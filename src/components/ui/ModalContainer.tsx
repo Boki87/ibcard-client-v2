@@ -3,7 +3,7 @@ import { ReactNode, useCallback, useEffect } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import { ModalPortal } from "./ModalPortal";
 
-interface IModalContainer {
+export interface IModalContainer {
   isOpen: boolean;
   onClose: () => void;
   children: ReactNode;

@@ -27,9 +27,10 @@ export const QRModal = () => {
             <div className="flex justify-center">
               <AppLogo className="h-8" />
             </div>
-            <div className="aspect-square rounded-xl p-2 bg-white w-[200px] h-[200px]">
+            <div className="aspect-square rounded-xl p-2 w-[200px] h-[200px] flex items-center justify-center relative overflow-hidden border-4 border-white">
+              <div className=" absolute top-0 left-0 z-10 bg-white animate-pulse w-full h-full"></div>
               <img
-                className=""
+                className="absolute top-0 left-0 z-20"
                 src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${qrModal.qrCodeUrl}`}
               />
             </div>

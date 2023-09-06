@@ -15,12 +15,14 @@ import { AppLayout } from "./components/layout/AppLayout";
 import { FrontPage } from "./views/Front";
 import { EditPage } from "./views/Edit";
 import { CompanyPortal } from "./views/CompanyPortal";
+import { Contacts } from "./views/Contacts";
 
 const authRouter = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<AppLayout />} errorElement={<Navigate to="/" />}>
       <Route index element={<Home />} />
       <Route path="login" element={<Login />} />
+      <Route path="/contacts" element={<Contacts />} />
       <Route path="card/:cardId" element={<FrontPage />} />
       <Route path="card/:cardId/edit" element={<EditPage />} />
       <Route path="card/:cardId/stats" element={<div>Stats page</div>} />

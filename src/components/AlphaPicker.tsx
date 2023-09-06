@@ -46,10 +46,10 @@ export const AlphaPicker = ({ onChange, selectedLetter }: AlphaPickerProps) => {
             onClick={() => {
               if (letter !== activeLetter) {
                 setActiveLetter(letter);
-                onChange(letter);
+                onChange && onChange(letter);
               } else {
                 setActiveLetter("");
-                onChange("");
+                onChange && onChange("");
               }
             }}
             letter={letter}
