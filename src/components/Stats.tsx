@@ -153,7 +153,8 @@ export const Stats = () => {
       if (numOfContacts.data.data.length == 0) {
         setContacts(0);
       } else {
-        setContacts(numOfContacts.data.data[0]);
+        console.log(numOfContacts.data.data);
+        setContacts(numOfContacts.data.data.length);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -246,7 +247,7 @@ export const Stats = () => {
       <div className="flex flex-col items-center justify-center w-full h-full rounded border-gray-100 mt-8">
         <div
           className="flex items-center w-full p-4 border 
-      border-gray-300 dark:border-gray-400 m-2 rounded dark:text-white dark:bg-gray-800 rounded-2xl bg-white "
+      border-gray-300 dark:border-gray-400 m-2 dark:text-white dark:bg-gray-800 rounded-2xl bg-white "
         >
           <div className="flex items-center">
             <FaRegEye className=" text-xl mr-2 dark:text-gray-200" />
@@ -257,7 +258,7 @@ export const Stats = () => {
 
         <div
           className="flex items-center w-full p-4 border 
-      border-gray-300 dark:border-gray-400 m-2 rounded dark:text-white dark:bg-gray-800 rounded-2xl bg-white "
+      border-gray-300 dark:border-gray-400 m-2 dark:text-white dark:bg-gray-800 rounded-2xl bg-white "
         >
           <div className="flex items-center">
             <FaRegSave className=" text-xl mr-2 dark:text-gray-200" />
@@ -268,7 +269,7 @@ export const Stats = () => {
 
         <div
           className="flex items-center w-full p-4 border 
-      border-gray-300 dark:border-gray-400 m-2 rounded dark:text-white dark:bg-gray-800 rounded-2xl bg-white "
+      border-gray-300 dark:border-gray-400 m-2 dark:text-white dark:bg-gray-800 rounded-2xl bg-white "
         >
           <div className="flex items-center">
             <FaPeopleArrows className=" text-xl mr-2 dark:text-gray-200" />
@@ -279,7 +280,7 @@ export const Stats = () => {
 
         <div
           className="flex items-center w-full p-4 border 
-      border-gray-300 dark:border-gray-400 m-2 rounded dark:text-white dark:bg-gray-800 rounded-2xl bg-white "
+      border-gray-300 dark:border-gray-400 m-2  dark:text-white dark:bg-gray-800 rounded-2xl bg-white "
         >
           <div className="flex items-center">
             <FaNetworkWired className=" text-xl mr-2 dark:text-gray-200" />
@@ -314,7 +315,7 @@ export const Stats = () => {
                 </div>
               </div>
               <div className="flex-grow text-right text-sm">
-                {socialRecordCounts[socialIcon.type] || 0 } taps
+                {socialRecordCounts[socialIcon.type] || 0} taps
               </div>
             </div>
           )
