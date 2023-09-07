@@ -15,8 +15,9 @@ export const Contacts = () => {
   const [queryName, setQueryName] = useState("");
   const [filterByLetter, setFilterByLetter] = useState("");
   const { user } = useUserContext();
-  const { isLoading, contacts } = useContacts(user.id);
+  const { isLoading, contacts, fetchContacts } = useContacts(user.id);
   const [activeContact, setActiveContact] = useState<Contact | null>(null);
+  const [showContactModal, setShowContactModal] = useState(false);
 
   function resetFilters() {
     setQueryName("");
@@ -111,15 +112,18 @@ export const Contacts = () => {
               contact={contact}
               onOpen={() => {
                 setActiveContact(contact);
+                setShowContactModal(true);
               }}
               key={contact.id}
             />
           ))}
       </div>
       <ContactDetailsModal
-        isOpen={!!activeContact}
+        isOpen={showContactModal}
         contact={activeContact}
         onClose={() => {
+          fetchContacts(user.id);
+          setShowContactModal(false);
           setActiveContact(null);
         }}
       />

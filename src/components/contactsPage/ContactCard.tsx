@@ -4,6 +4,7 @@ import { Contact } from "../../types/Contacts";
 import { AppButton } from "../ui/AppButton";
 import { MdEmail } from "react-icons/md";
 import { MdContacts } from "react-icons/md";
+import VCard from "vcard-creator";
 
 interface ContactCardProps {
   contact: Partial<Contact>;
@@ -12,6 +13,25 @@ interface ContactCardProps {
 
 export const ContactCard = forwardRef<HTMLDivElement, ContactCardProps>(
   ({ contact, onOpen }, ref) => {
+    function saveToContacts() {
+      const myVCard = new VCard();
+      myVCard.addName(contact.first_name || "", contact.last_name || "");
+      if (contact.phone) {
+        myVCard.addPhoneNumber(contact.phone);
+      }
+      if (contact.email) {
+        myVCard.addEmail(contact.email);
+      }
+
+      const blob = new Blob([myVCard.toString()], { type: "text/vcard" });
+      const elem = window.document.createElement("a");
+      elem.href = window.URL.createObjectURL(blob);
+      elem.download = "vcard.vcf";
+      document.body.appendChild(elem);
+      elem.click();
+      document.body.removeChild(elem);
+    }
+
     return (
       <div
         ref={ref}
@@ -40,13 +60,21 @@ export const ContactCard = forwardRef<HTMLDivElement, ContactCardProps>(
           )}
         </div>
         <div className="h-full flex items-center gap-1 p-2">
-          <AppButton variant="gray" className="p-2 min-w-[40px]">
-            <FaPhone />
-          </AppButton>
-          <AppButton variant="gray" className="p-2 min-w-[40px]">
-            <MdEmail />
-          </AppButton>
-          <AppButton variant="gray" className="p-2 min-w-[40px]">
+          <a href={`tel:${contact.phone}`}>
+            <AppButton variant="gray" className="p-2 min-w-[40px]">
+              <FaPhone />
+            </AppButton>
+          </a>
+          <a href={`mailto:${contact.email}`}>
+            <AppButton variant="gray" className="p-2 min-w-[40px]">
+              <MdEmail />
+            </AppButton>
+          </a>
+          <AppButton
+            onClick={saveToContacts}
+            variant="gray"
+            className="p-2 min-w-[40px]"
+          >
             <MdContacts />
           </AppButton>
         </div>

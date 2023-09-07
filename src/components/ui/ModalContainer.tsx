@@ -36,7 +36,7 @@ export const ModalContainer = ({
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           initial={{ y: 100, opacity: 0 }}
-          className="absolute top-0 left-0 w-full h-full z-30 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white"
+          className="absolute top-0 left-0 w-full h-full z-30 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white overflow-auto"
         >
           {showClose ? (
             <button
