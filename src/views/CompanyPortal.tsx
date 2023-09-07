@@ -1,9 +1,19 @@
 import { SlRefresh } from "react-icons/sl";
+import { FaFileCsv} from "react-icons/fa";
+import { AppButton } from "../components/ui/AppButton";
 import { AppInput } from "../components/ui/AppInput";
 import { FaSearch } from "react-icons/fa";
 import { AppSelect } from "../components/ui/AppSelect";
 import { AlphaPicker } from "../components/AlphaPicker";
-import { ChangeEvent, useMemo, useRef, useState } from "react";
+import { exportCsv } from "../lib/utils";
+import {
+  ChangeEvent,
+  SyntheticEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { countries } from "../lib/countries";
 import { departments } from "../lib/departments";
 import { webAppUrl } from "../api";
@@ -101,6 +111,25 @@ export const CompanyPortal = () => {
       });
   }, [employees, queryName, queryCountry, queryDepartment]);
 
+
+  const csvEmployees = filteredEmployees.map((employee, index) => ({
+    "": index + 1,
+    Name: employee.first_name,
+    Surname: employee.last_name,
+    Role: employee.company_role,
+    Country: employee.country,
+    Department: employee.department,
+    Email: employee.email,
+    Facebook: employee.facebook,
+    Instagram: employee.instagram,
+    Linkedin: employee.linkedin,
+    Website: employee.website,
+    Twitter: employee.twitter,
+    YouTube: employee.youtube,
+  }));
+
+
+
   return (
     <div className="py-4">
       <div>
@@ -119,6 +148,11 @@ export const CompanyPortal = () => {
             className="w-10 h-10 min-w-[40px] dark:bg-gray-500 rounded-full flex items-center justify-center dark:text-white"
           >
             <SlRefresh />
+          </button>
+          <button
+            className="w-10 h-10 min-w-[40px] rounded-full flex items-center justify-center dark:text-white"
+          >
+            <FaFileCsv onClick={() => exportCsv(csvEmployees)}  className="text-3xl dark:text-white cursor-pointer" />
           </button>
         </div>
         <div className="flex gap-2 px-4">

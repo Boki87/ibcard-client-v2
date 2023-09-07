@@ -12,6 +12,7 @@ import { Home } from "./views/Home";
 import { useUserContext } from "./context/UserContext";
 import { api } from "./api";
 import { AppLayout } from "./components/layout/AppLayout";
+import { Stats } from "./components/Stats";
 import { FrontPage } from "./views/Front";
 import { EditPage } from "./views/Edit";
 import { CompanyPortal } from "./views/CompanyPortal";
@@ -25,7 +26,7 @@ const authRouter = createBrowserRouter(
       <Route path="/contacts" element={<Contacts />} />
       <Route path="card/:cardId" element={<FrontPage />} />
       <Route path="card/:cardId/edit" element={<EditPage />} />
-      <Route path="card/:cardId/stats" element={<div>Stats page</div>} />
+      <Route path="card/:cardId/stats" element={<Stats/>} />
       <Route path="card/:cardId/portal" element={<CompanyPortal />} />
     </Route>
   )

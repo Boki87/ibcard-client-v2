@@ -1,28 +1,38 @@
 import { SocialLink } from "../../types/SocialLink";
 import { BsChevronRight } from "react-icons/bs";
 import { SocialIcon } from "../SocialIcon";
-
+import { Card } from "../../types/Card";
+import { api } from "./../../api";
 interface UserSocialsProps {
-  socials: SocialLink[];
+  cardData: Card;
 }
 
-export const UserSocials = ({ socials }: UserSocialsProps) => {
-  const videos = socials.filter((s) => s.is_active && s.type === "video");
+export const UserSocials = ({ cardData }: UserSocialsProps) => {
+  
+  const videos = cardData.social_links.filter((s) => s.is_active && s.type === "video");
 
-  const offers = socials.filter(
-    (s) => s.is_active && s.type === "special_offer"
-  );
+  // const offers = cardData.social_links.filter(
+  //   (s) => s.is_active && s.type === "special_offer"
+  // );
 
-  const catalogues = socials.filter(
-    (s) => s.is_active && s.type === "catalogue"
-  );
+  // const catalogues = cardData.social_links.filter(
+  //   (s) => s.is_active && s.type === "catalogue"
+  // );
 
-  const commonSocials = socials.filter(
+  const commonSocials = cardData.social_links.filter(
     (s) =>
       s.is_active && !["catalogue", "special_offer", "video"].includes(s.type)
   );
-
-  function handleSocialClick(href: string | undefined) {
+   console.log(commonSocials)
+   async function handleSocialClick(href: string | undefined, socialId: number, socialType: string) {
+    console.log(cardData.social_links)
+     try {
+      
+       const response = await api.post(`/api/socialStats/updateOrCreate/${cardData.user_id}/${socialId}/${socialType}`);
+      console.log('Response:', response.data); 
+    } catch (error) {
+      console.error('Error:', error); 
+    }
     if (!href) return;
     window.open(href, "_blank");
   }
@@ -35,7 +45,7 @@ export const UserSocials = ({ socials }: UserSocialsProps) => {
         {commonSocials.map((social) => (
           <div className="flex justify-center" key={social.id}>
             <SocialIcon
-              onClick={() => handleSocialClick(social.url)}
+              onClick={() => handleSocialClick(social.url, social.id, social.type)}
               url={social.url || ""}
               type={social.type}
               title={social.title}
@@ -50,6 +60,9 @@ export const UserSocials = ({ socials }: UserSocialsProps) => {
 
 const VideoThumb = ({ video }: { video: SocialLink }) => {
   function handleSocialClick(href: string | undefined) {
+
+    
+
     if (!href) return;
     window.open(href, "_blank");
   }

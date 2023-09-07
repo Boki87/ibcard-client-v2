@@ -9,6 +9,8 @@ import { ContactCard } from "../components/contactsPage/ContactCard";
 import { useNavigate } from "react-router-dom";
 import { ContactDetailsModal } from "../components/contactsPage/ContactDetailsModal";
 import { Contact } from "../types/Contacts";
+import { exportCsv } from "../lib/utils";
+import { FaFileCsv} from "react-icons/fa";
 
 export const Contacts = () => {
   const navigate = useNavigate();
@@ -37,6 +39,20 @@ export const Contacts = () => {
       }
     });
   }, [contacts, queryName]);
+
+
+  const csvContacts = filteredContacts.map((contact, index) => ({
+    "": index + 1,
+    Name: contact.first_name,
+    Surname: contact.last_name,
+    Title: contact.title,
+    Company: contact.company_name,
+    Phone: contact.phone,
+    Email: contact.email,
+  }));
+
+
+  
 
   const contactCardRefs = useRef([]);
   function letterChangeHandler(letter: string) {
@@ -90,6 +106,11 @@ export const Contacts = () => {
         >
           <SlRefresh />
         </button>
+        <button
+            className="w-10 h-10 min-w-[40px] rounded-full flex items-center justify-center dark:text-white"
+          >
+            <FaFileCsv onClick={() => exportCsv(csvContacts)}  className="text-3xl dark:text-white cursor-pointer" />
+          </button>
       </div>
       <AlphaPicker
         selectedLetter={filterByLetter}

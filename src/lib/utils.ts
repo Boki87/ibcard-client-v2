@@ -17,7 +17,7 @@ export async function uploadAvatar(avatarFile: File, cardId: number) {
     throw Error("Unsupported image format!");
   }
 
-  let form = new FormData();
+  const form = new FormData();
   form.append("avatar", avatarFile);
   form.append("id", cardId.toString());
 
@@ -29,3 +29,23 @@ export async function uploadAvatar(avatarFile: File, cardId: number) {
 
   return res;
 }
+
+
+export function exportCsv(datas) {
+  console.log(datas)
+  let csvContent = "data:text/csv;charset=utf-8,";
+  csvContent += [
+    Object.keys(datas[0]).join(";"),
+    ...datas.map((d) => Object.values(d).join(";")),
+  ]
+    .join("\n")
+    .replace(/(^\[)|(\]$)/gm, "");
+
+  const data = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", data);
+  link.setAttribute("download", "export.csv");
+  link.click();
+}
+
+

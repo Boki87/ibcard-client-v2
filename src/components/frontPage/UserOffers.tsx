@@ -1,22 +1,30 @@
 import { SocialLink } from "../../types/SocialLink";
 import { BsChevronRight } from "react-icons/bs";
 import { SocialIcon } from "../SocialIcon";
-
+import { Card } from "../../types/Card";
+import { api } from "./../../api";
 interface UserSocialsProps {
-  socials: SocialLink[];
+  // socials: SocialLink[];
+  cardData: Card;
 }
 
-export const UserOffers = ({ socials }: UserSocialsProps) => {
-  const offers = socials.filter(
+export const UserOffers = ({ cardData }: UserSocialsProps) => {
+  const offers = cardData.social_links.filter(
     (s) => s.is_active && s.type === "special_offer"
   );
-
-  function handleSocialClick(href: string | undefined) {
+  console.log(offers) 
+   async function handleSocialClick(href: string | undefined,  socialId: number, socialType: string) {
+    try {
+     const response = await api.post(`/api/socialStats/updateOrCreate/${cardData.user_id}/${socialId}/${socialType}`);
+     console.log('Response:', response.data); 
+   } catch (error) {
+     console.error('Error:', error); 
+   }
     if (!href) return;
     window.open(href, "_blank");
   }
 
-  if (socials.length === 0) return null;
+  if (cardData.social_links.length === 0) return null;
 
   return (
     <div className="mt-4 mb-6">
@@ -28,7 +36,7 @@ export const UserOffers = ({ socials }: UserSocialsProps) => {
         {offers.map((social) => (
           <div className="flex justify-center" key={social.id}>
             <SocialIcon
-              onClick={() => handleSocialClick(social.url)}
+              onClick={() => handleSocialClick(social.url, social.id, social.type)}
               url={social.url || ""}
               type={social.type}
               title={social.title}
