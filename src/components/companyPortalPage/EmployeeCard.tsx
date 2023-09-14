@@ -23,6 +23,7 @@ export const EmployeeCard = forwardRef<HTMLDivElement, EmployeeCardProps>(
                 alt="user avatar"
                 onError={() => setImageError(true)}
                 className="object-cover min-w-full min-h-full"
+                loading="lazy"
               />
             ) : (
               <FaUser className="text-5xl" />
@@ -36,7 +37,7 @@ export const EmployeeCard = forwardRef<HTMLDivElement, EmployeeCardProps>(
           </div>
           <div className="text-gray-800 dark:text-gray-400">{department}</div>
           <div className="flex-1"></div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 text-xs sm:text-md">
             <button
               onClick={() => {
                 onShare && onShare();

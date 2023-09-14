@@ -1,5 +1,5 @@
 import { SlRefresh } from "react-icons/sl";
-import { FaFileCsv} from "react-icons/fa";
+import { FaFileCsv } from "react-icons/fa";
 import { AppButton } from "../components/ui/AppButton";
 import { AppInput } from "../components/ui/AppInput";
 import { FaSearch } from "react-icons/fa";
@@ -21,8 +21,10 @@ import { redirect, useParams } from "react-router-dom";
 import { useCardData } from "../hooks/useCardData";
 import { EmployeeCard } from "../components/companyPortalPage/EmployeeCard";
 import { useEmployees } from "../hooks/useEmployees";
+import { useModalsContext } from "../context/ModalsContext";
 
 export const CompanyPortal = () => {
+  const { qrModal } = useModalsContext();
   const { cardId } = useParams();
   if (!cardId) {
     redirect("/");
@@ -111,7 +113,6 @@ export const CompanyPortal = () => {
       });
   }, [employees, queryName, queryCountry, queryDepartment]);
 
-
   const csvEmployees = filteredEmployees.map((employee, index) => ({
     "": index + 1,
     Name: employee.first_name,
@@ -127,8 +128,6 @@ export const CompanyPortal = () => {
     Twitter: employee.twitter,
     YouTube: employee.youtube,
   }));
-
-
 
   return (
     <div className="py-4">
@@ -149,10 +148,11 @@ export const CompanyPortal = () => {
           >
             <SlRefresh />
           </button>
-          <button
-            className="w-10 h-10 min-w-[40px] rounded-full flex items-center justify-center dark:text-white"
-          >
-            <FaFileCsv onClick={() => exportCsv(csvEmployees)}  className="text-3xl dark:text-white cursor-pointer" />
+          <button className="w-10 h-10 min-w-[40px] rounded-full flex items-center justify-center dark:text-white">
+            <FaFileCsv
+              onClick={() => exportCsv(csvEmployees)}
+              className="text-3xl dark:text-white cursor-pointer"
+            />
           </button>
         </div>
         <div className="flex gap-2 px-4">
@@ -221,7 +221,10 @@ export const CompanyPortal = () => {
                   location.href = `${webAppUrl}/card/${cardId}`;
                 }}
                 onShare={() => {
-                  alert("Share");
+                  const cardId = emp.nfc_card?.link.substring(
+                    emp.nfc_card?.link.lastIndexOf("/") + 1
+                  );
+                  qrModal.openQrModal(`${webAppUrl}/card/${cardId}`, true);
                 }}
                 key={emp.id}
               />

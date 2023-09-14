@@ -54,11 +54,15 @@ export const VideoEditor = ({
       const title = socialData.title ? socialData.title.trim() : "";
       const url = socialData.url ? socialData.url.trim() : "";
       const cta = socialData.cta ? socialData.cta.trim() : "";
+
+      const videoUid = url.slice(url.lastIndexOf("/") + 1);
+      const formattedVideoEmbed = `https://www.youtube.com/embed/${videoUid}`;
+
       const res = await api.put(
         `/api/social-links/${socialId}`,
         JSON.stringify({
           title: title,
-          url: url,
+          url: formattedVideoEmbed,
           cta: cta,
           is_active: socialData?.is_active,
         })

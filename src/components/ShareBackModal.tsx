@@ -8,12 +8,14 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { api } from "../api";
 import { useCardData } from "../hooks/useCardData";
 import { IoIosPin } from "react-icons/io";
+import toast from "react-hot-toast";
 
 interface ShareBackModalProps {
   isOpen: boolean;
   onClose: () => void;
   contactId?: number;
   cardDataId: string;
+  cardOwner?: string;
 }
 
 const initialFormData = {
@@ -30,11 +32,11 @@ export const ShareBackModal = ({
   isOpen,
   onClose,
   cardDataId,
+  cardOwner,
 }: ShareBackModalProps) => {
   const { getLocation, coords, isLoading, isSet, error, resetCoords } =
     useGeoLocation();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const {} = useCardData(cardDataId);
   const [formData, setFormData] = useState(initialFormData);
 
   function onInputHandler(e: ChangeEvent<HTMLInputElement>) {
@@ -54,7 +56,9 @@ export const ShareBackModal = ({
       });
       setTimeout(() => {
         onClose();
-        //TODO: send toast notification
+        toast.success(
+          "You have successfully shared your information with this card holder 👏"
+        );
       }, 1000);
     } catch (e) {
       console.log(e);
@@ -77,30 +81,20 @@ export const ShareBackModal = ({
   return (
     <ModalContainer isOpen={isOpen} onClose={onClose}>
       <form className="p-6" onSubmit={submitHandler}>
-        <p className="text-center text-gray-600 dark:text-gray-200 mt-6">
-          Share back your contact information with this card holder
+        <p className="text-center text-gray-600 dark:text-gray-200 mt-10">
+          Share back your contact information with{" "}
+          {cardOwner ? (
+            <span className="font-bold">{cardOwner}</span>
+          ) : (
+            <span>this card owner</span>
+          )}
         </p>
         <AppInput
-          placeholder="Company Name"
-          className="mt-6"
-          name="company_name"
-          value={formData.company_name}
-          onInput={onInputHandler}
-        />
-        <AppInput placeholder="Title" className="mt-3" />
-        <AppInput
-          placeholder="First Name*"
+          placeholder="Full Name*"
           required
-          className="mt-3"
+          className="mt-6"
           name="first_name"
           value={formData.first_name}
-          onInput={onInputHandler}
-        />
-        <AppInput
-          placeholder="Last Name"
-          className="mt-3"
-          name="last_name"
-          value={formData.last_name}
           onInput={onInputHandler}
         />
         <AppInput
@@ -118,6 +112,13 @@ export const ShareBackModal = ({
           className="mt-3"
           name="phone"
           value={formData.phone}
+          onInput={onInputHandler}
+        />
+        <AppInput
+          placeholder="Company Name"
+          className="mt-3"
+          name="company_name"
+          value={formData.company_name}
           onInput={onInputHandler}
         />
         <AppButton

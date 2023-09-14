@@ -1,6 +1,6 @@
 import { ModalContainer } from "./ui/ModalContainer";
 
-//TODO: add mora props accordingly
+//TODO: add more props accordingly
 interface IPortfolioModal {
   isOpen: boolean;
   onClose: () => void;

@@ -20,7 +20,7 @@ export function ThemeToggle() {
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 20, opacity: 0 }}
         transition={{ duration: 0.3 }}
-        className="w-10 h-10 rounded-full bg-gray-50 dark:bg-gray-500 hover:brightness-95 flex items-center justify-center cursor-pointer"
+        className="w-10 h-10 rounded-full bg-gray-50 dark:bg-gray-800 hover:brightness-95 dark:text-white text-black flex items-center justify-center cursor-pointer"
       >
         {theme === "light" ? <BsMoon /> : <BsSun />}
       </motion.div>

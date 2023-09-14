@@ -17,6 +17,7 @@ import { useParams } from "react-router-dom";
 import { VideosEditWidget } from "./editVideos/VideosEditWidget";
 import { OffersEditWidget } from "./editOffers/OffersEditWidget";
 import { CatalogueEditWidget } from "./editCatalouges/CatalogueEditWidget";
+import toast from "react-hot-toast";
 
 interface EditPageComponentProps {
   cardData: Card;
@@ -52,7 +53,7 @@ export const EditPageComponent = ({ cardData }: EditPageComponentProps) => {
         initialCardData
       );
       if (res.data.error) {
-        //TODO: show toast message
+        toast.success("Data saved 👍");
         setIsUpdating(false);
         alert("Could not update data");
         return;
@@ -161,7 +162,6 @@ export const EditPageComponent = ({ cardData }: EditPageComponentProps) => {
         onChange={inputChangeHandler}
         className="my-3 mx-auto"
       />
-
       <AppInput
         leftIcon={<BsTelephoneFill />}
         placeholder="Phone"

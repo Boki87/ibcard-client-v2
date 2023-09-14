@@ -79,9 +79,11 @@ const BottomNav = () => {
       <BottomNavLink to={`/card/${cardId}/stats`}>
         <GiChart className="text-2xl" />
       </BottomNavLink>
-      <BottomNavLink to={`/card/${cardId}/portal`}>
-        <BsPeople className="text-3xl" />
-      </BottomNavLink>
+      {cardData.company ? (
+        <BottomNavLink to={`/card/${cardId}/portal`}>
+          <BsPeople className="text-3xl" />
+        </BottomNavLink>
+      ) : null}
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import { redirect, useParams } from "react-router-dom";
 import { useCardData } from "../hooks/useCardData";
-import { UserCard } from "../components/frontPage/UserCard";
 import { FrontPageComponent } from "../components/frontPage/FrontPageComponent";
 import { FrontPageLoader } from "../components/frontPage/FrontPageLoader";
 import { useEffect } from "react";
@@ -17,7 +16,7 @@ export const FrontPage = () => {
   async function collectView() {
     await api.post(`/api/user-view`, {
       user_id: cardData.user_id,
-      customer_id: cardData.customer_id,
+      users_data_id: cardData.id,
     });
   }
 

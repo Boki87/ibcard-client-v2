@@ -3,8 +3,9 @@ import { ReactNode, createContext, useContext, useState } from "react";
 interface IQRModal {
   isQrModalOpen: boolean;
   qrCodeUrl: string;
-  openQrModal: (url: string) => void;
+  openQrModal: (url: string, showOptions?: boolean) => void;
   closeQrModal: () => void;
+  showShareOptions: boolean;
 }
 
 interface IModalsContext {
@@ -23,6 +24,7 @@ const initialState: IModalsContext = {
     qrCodeUrl: "",
     openQrModal: () => {},
     closeQrModal: () => {},
+    showShareOptions: false,
   },
 };
 
@@ -37,6 +39,7 @@ export default function ModalsContextProvider({
   const [isMainMenuOpen, setIsMainMenuOpen] = useState(false);
   const [isQrModalOpen, setIsQrModalOpen] = useState(false);
   const [qrCodeUrl, setQrCodeUrl] = useState("");
+  const [showShareOptions, setShowShareOptions] = useState(false);
 
   // QR Modal functions
   function openMainMenu() {
@@ -45,11 +48,13 @@ export default function ModalsContextProvider({
   function closeMainMenu() {
     setIsMainMenuOpen(false);
   }
-  function openQrModal(url: string) {
+  function openQrModal(url: string, showShareOptions?: boolean) {
+    showShareOptions ? setShowShareOptions(true) : setShowShareOptions(false);
     setQrCodeUrl(url);
     setIsQrModalOpen(true);
   }
   function closeQrModal() {
+    setShowShareOptions(false);
     setQrCodeUrl("");
     setIsQrModalOpen(false);
   }
@@ -66,6 +71,7 @@ export default function ModalsContextProvider({
           qrCodeUrl,
           openQrModal,
           closeQrModal,
+          showShareOptions,
         },
       }}
     >

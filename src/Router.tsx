@@ -17,17 +17,23 @@ import { FrontPage } from "./views/Front";
 import { EditPage } from "./views/Edit";
 import { CompanyPortal } from "./views/CompanyPortal";
 import { Contacts } from "./views/Contacts";
+import { RegisterCardPage } from "./views/RegisterCard";
+import { HelpPage } from "./views/Help";
+import { TermsPage } from "./views/Terms";
 
 const authRouter = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<AppLayout />} errorElement={<Navigate to="/" />}>
       <Route index element={<Home />} />
       <Route path="login" element={<Login />} />
-      <Route path="/contacts" element={<Contacts />} />
+      <Route path="register/:token" element={<RegisterCardPage />} />
+      <Route path="contacts" element={<Contacts />} />
       <Route path="card/:cardId" element={<FrontPage />} />
       <Route path="card/:cardId/edit" element={<EditPage />} />
-      <Route path="card/:cardId/stats" element={<Stats/>} />
+      <Route path="card/:cardId/stats" element={<Stats />} />
       <Route path="card/:cardId/portal" element={<CompanyPortal />} />
+      <Route path="help" element={<HelpPage />} />
+      <Route path="terms" element={<TermsPage />} />
     </Route>
   )
 );
@@ -36,7 +42,10 @@ const publicRouter = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<AppLayout />}>
       <Route index element={<Login />} />
+      <Route path="register/:token" element={<RegisterCardPage />} />
       <Route path="card/:cardId" element={<FrontPage />} />
+      <Route path="help" element={<HelpPage />} />
+      <Route path="terms" element={<TermsPage />} />
     </Route>
   )
 );

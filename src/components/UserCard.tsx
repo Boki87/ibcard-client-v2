@@ -23,7 +23,8 @@ export const UserCard = ({ data, onQrCodeClick }: UserCardProps) => {
           {data.first_name} {data.last_name}
         </span>
         <span className="text-sm text-gray-500 dark:text-gray-300">
-          {data.company_role} @{data.company?.name}
+          {data.company_role}{" "}
+          {data.company?.name ? "@ " + data.company.name : null}
         </span>
       </Link>
       <div className="h-full flex flex-col justify-between items-center">

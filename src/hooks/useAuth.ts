@@ -1,6 +1,8 @@
 import { SyntheticEvent, useState } from "react";
 import { api } from "../api";
 import { useUserContext } from "../context/UserContext";
+import { NavigateFunction, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const wait = () =>
   new Promise((res) =>
@@ -10,6 +12,7 @@ const wait = () =>
   );
 
 export const useAuth = () => {
+  const navigate = useNavigate();
   const { setUser } = useUserContext();
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("peric.bojan87@gmail.com");
@@ -27,7 +30,7 @@ export const useAuth = () => {
       setUser(loginRes.data.user);
       setIsLoading(false);
     } catch (e) {
-      //TODO: add toast message
+      toast.error("Invalid credentials!");
       console.log(e);
       setIsLoading(false);
     }
@@ -44,7 +47,7 @@ export const useAuth = () => {
     } catch (e) {
       console.log(e);
       setIsLoading(false);
-      //TODO: add toast message
+      toast.error("Error logging out");
     }
   }
 

@@ -44,7 +44,10 @@ export const ContactCard = forwardRef<HTMLDivElement, ContactCardProps>(
           <FaInfo />
         </div>
         <div className="flex-1 truncate p-2">
-          <div className="flex gap-1 font-bold text-xl text-black dark:text-white truncate">
+          <div
+            onClick={onOpen}
+            className="flex gap-1 font-bold text-xl text-black dark:text-white truncate"
+          >
             <span className="truncate">
               {contact.first_name && <>{contact.first_name}</>}
               {contact.last_name && <> {contact.last_name}</>}

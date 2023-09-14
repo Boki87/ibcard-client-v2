@@ -4,6 +4,7 @@ import { Card } from "../types/Card";
 import { UserCard } from "../components/UserCard";
 import { CardSkeletonLoader } from "../components/CardSkeletonLoader";
 import { useModalsContext } from "../context/ModalsContext";
+import toast from "react-hot-toast";
 
 export const Home = () => {
   const [cards, setCards] = useState<Card[]>([]);
@@ -20,7 +21,7 @@ export const Home = () => {
     } catch (e) {
       console.log(e);
       setIsLoading(false);
-      //TODO: add toast message
+      toast.error("Could not fetch cards. Please refresh and try again.");
     }
   }
 

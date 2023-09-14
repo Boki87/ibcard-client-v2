@@ -19,23 +19,39 @@ interface FrontPageComponentProps {
 }
 
 export const FrontPageComponent = ({ cardData }: FrontPageComponentProps) => {
-  console.log(cardData);
   const { qrModal } = useModalsContext();
   const [showAboutMe, setShowAboutMe] = useState(false);
   const [showCompanyInfo, setShowCompanyInfo] = useState(false);
   const [showPortfolio, setShowPortfolio] = useState(false);
   const [showShareBack, setShowShareBack] = useState(false);
 
-  function qrCodeClickHandler() {
+  let fullName = "";
+  if (cardData.first_name) {
+    fullName += cardData.first_name;
+  }
+
+  if (cardData.last_name) {
+    fullName += " " + cardData.last_name;
+  }
+
+  function qrCodeClickHandler(showOptions: boolean) {
     if (cardData.nfc_card?.link) {
-      qrModal.openQrModal(cardData.nfc_card?.link);
+      qrModal.openQrModal(cardData.nfc_card?.link, showOptions);
     }
+  }
+
+  function saveHandler() {
+    //TODO: request to collect user save
+    saveVcf(cardData);
   }
 
   return (
     <div>
-      <div className="px-4">
-        <UserCard data={cardData} onQrCodeClick={qrCodeClickHandler} />
+      <div className="px-4 mb-10">
+        <UserCard
+          data={cardData}
+          onQrCodeClick={(showOptions) => qrCodeClickHandler(showOptions)}
+        />
       </div>
       <div className="px-4">
         <UserMainInfo
@@ -46,8 +62,8 @@ export const FrontPageComponent = ({ cardData }: FrontPageComponentProps) => {
         />
       </div>
 
-      <div className="px-4 my-6">
-        <AppButton onClick={() => saveVcf(cardData)} className="mb-3">
+      <div className="px-4 mt-6">
+        <AppButton onClick={saveHandler} className="mb-3">
           <span>Save contact</span>
           <FaSave />
         </AppButton>
@@ -59,35 +75,10 @@ export const FrontPageComponent = ({ cardData }: FrontPageComponentProps) => {
         ) : null}
       </div>
 
-      <div className="bg-slate-100 dark:bg-black dark:bg-opacity-10 p-4 mt-10 py-4">
-        {/* TODO: figure out the below sections */}
-        {/* <div className="grid grid-cols-3">
-          <p
-            onClick={() => setShowAboutMe(true)}
-            className="text-sm flex items-center space-x-1 text-gray-700 dark:text-gray-200 justify-center hover:underline cursor-pointer"
-          >
-            <span>About me</span>
-            <BsChevronRight />
-          </p>
-          <p
-            onClick={() => setShowCompanyInfo(true)}
-            className="text-sm flex items-center space-x-1 text-gray-700 dark:text-gray-200 justify-center hover:underline cursor-pointer"
-          >
-            <span>Company info</span>
-            <BsChevronRight />
-          </p>
-          <p
-            onClick={() => setShowPortfolio(true)}
-            className="text-sm flex items-center space-x-1 text-gray-700 dark:text-gray-200 justify-center hover:underline cursor-pointer"
-          >
-            <span>Portfolio</span>
-            <BsChevronRight />
-          </p>
-        </div> */}
-
+      <div className="bg-slate-100 dark:bg-black dark:bg-opacity-10 p-4 mt-4 py-4">
         <UserSocials cardData={cardData} />
-        <UserCatalogues cardData={cardData}  />
-        <UserOffers cardData={cardData } />
+        <UserCatalogues cardData={cardData} />
+        <UserOffers cardData={cardData} />
       </div>
       <AboutMeModal
         isOpen={showAboutMe}
@@ -104,6 +95,7 @@ export const FrontPageComponent = ({ cardData }: FrontPageComponentProps) => {
       <ShareBackModal
         isOpen={showShareBack}
         cardDataId={cardData.id.toString()}
+        cardOwner={fullName}
         onClose={() => {
           setShowShareBack(false);
         }}

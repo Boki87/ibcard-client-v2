@@ -17,10 +17,10 @@ export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="w-full h-full flex items-center justify-center p-6 bg-white dark:bg-gray-700">
+    <div className="w-full h-full flex items-center justify-center p-6 bg-white dark:bg-gray-900">
       <div className="max-w-sm w-full">
         <div className="text-center mb-4">
-          <AppLogo className="h-16 inline" />
+          <AppLogo className="h-28 inline" />
         </div>
         <form onSubmit={attemptLogin}>
           <AppInput
@@ -69,14 +69,14 @@ export const Login = () => {
             </Link>
           </p>
 
-          <div className="flex items-center justify-center space-x-4">
+          {/* <div className="flex items-center justify-center space-x-4">
             <p className="text-gray-700 dark:text-white">
               Dont have an account?
             </p>
             <AppButton className="max-w-[80px] h-8 text-sm" type="button">
               Sign Up
             </AppButton>
-          </div>
+          </div> */}
           <div className="fixed bottom-4 right-4">
             <ThemeToggle />
           </div>

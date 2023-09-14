@@ -10,13 +10,19 @@ export const UserCatalogues = ({ cardData }: UserSocialsProps) => {
   const offers = cardData.social_links.filter(
     (s) => s.is_active && s.type === "catalogue"
   );
-  console.log(offers);
-  async function handleSocialClick(href: string | undefined, socialId: number, socialType: string) {
+  async function handleSocialClick(
+    href: string | undefined,
+    socialId: number,
+    socialType: string
+  ) {
     try {
-      const response = await api.post(
-        `/api/socialStats/updateOrCreate/${cardData.user_id}/${socialId}/${socialType}`
-      );
-      console.log("Response:", response.data);
+      const response = await api.post(`/api/socialStats/add-click`, {
+        user_id: cardData.user_id,
+        users_data_id: cardData.id,
+        social_id: socialId,
+        social_type: socialType,
+      });
+      // console.log("Response:", response.data);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -24,7 +30,7 @@ export const UserCatalogues = ({ cardData }: UserSocialsProps) => {
     window.open(href, "_blank");
   }
 
-  if (cardData.social_links.length === 0) return null;
+  if (offers.length === 0) return null;
 
   return (
     <div className="mt-4 mb-6">
@@ -36,7 +42,9 @@ export const UserCatalogues = ({ cardData }: UserSocialsProps) => {
         {offers.map((social) => (
           <div className="flex justify-center" key={social.id}>
             <SocialIcon
-              onClick={() => handleSocialClick(social.url, social.id, social.type)}
+              onClick={() =>
+                handleSocialClick(social.url, social.id, social.type)
+              }
               url={social.url || ""}
               type={social.type}
               title={social.title}

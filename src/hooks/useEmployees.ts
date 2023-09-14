@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card } from "../types/Card";
 import { api } from "../api";
+import toast from "react-hot-toast";
 
 export const useEmployees = (
   companyId: number,
@@ -15,6 +16,7 @@ export const useEmployees = (
   const [isLoadingEmployees, setIsLoadingEmployees] = useState(false);
 
   async function fetchEmployees() {
+    if (!companyId) return;
     try {
       setIsLoadingEmployees(true);
       let res = await api.post(`/api/customers/${companyId}/employees`, {
@@ -40,7 +42,7 @@ export const useEmployees = (
     } catch (e) {
       console.log(e);
       setIsLoadingEmployees(false);
-      //TODO: handle error
+      toast.error("Could not fetch employees. Please refresh and try again.");
     }
   }
 

@@ -15,7 +15,6 @@ interface IInput extends React.InputHTMLAttributes<HTMLInputElement> {
   rightIconAction?: () => void;
   className?: string;
   showError?: boolean;
-  [x: string]: any;
 }
 
 export const AppInput = ({
@@ -25,7 +24,7 @@ export const AppInput = ({
   rightIconAction,
   className = "",
   showError,
-  ...rest
+  ...props
 }: IInput) => {
   const inputRef = useRef<HTMLInputElement>();
   const [isFocused, setIsFocused] = useState(false);
@@ -106,9 +105,9 @@ export const AppInput = ({
       <input
         autoComplete="off"
         ref={inputRef}
-        className="outline-none border-none w-full h-full px-4 bg-transparent rounded-full text-gray-800 placeholder:text-gray-500 dark:placeholder:text-gray-300 dark:text-white dark:placeholder-white"
+        className="outline-none border-none w-full h-full px-4 bg-transparent autofill:bg-red-400 rounded-full text-gray-800 placeholder:text-gray-500 dark:placeholder:text-gray-300 dark:text-white dark:placeholder-white"
         type="text"
-        {...rest}
+        {...props}
       />
     </div>
   );

@@ -9,6 +9,10 @@ import { AppButton } from "./ui/AppButton";
 import { useAuth } from "../hooks/useAuth";
 import { BiExit, BiLogIn } from "react-icons/bi";
 import { useUserContext } from "../context/UserContext";
+import { RiContactsBook2Fill } from "react-icons/ri";
+import { FaFileContract, FaHireAHelper } from "react-icons/fa";
+import { AiFillHome, AiFillShopping } from "react-icons/ai";
+import { MdLiveHelp } from "react-icons/md";
 
 export const MainMenu = () => {
   const { user } = useUserContext();
@@ -39,39 +43,50 @@ export const MainMenu = () => {
             </button>
           </div>
           <div className="flex justify-end my-3 px-8">
-            <AppLogo className="h-10" />
+            <AppLogo className="h-20" />
           </div>
-          <div className="flex-1 flex flex-col justify-end items-end px-10 py-4">
-            <Link
-              to="/contacts"
-              className="my-3 text-2xl font-bold text-gray-800 dark:text-white hover:underline text-right"
-            >
-              Contacts
-            </Link>
-            <Link
-              to="/"
-              className="my-3 text-2xl font-bold text-gray-800 dark:text-white hover:underline text-right"
-            >
-              Give us an idea/feedback
-            </Link>
-            <Link
-              to="/"
-              className="my-3 text-2xl font-bold text-gray-800 dark:text-white hover:underline"
-            >
-              Help center
-            </Link>
-            <Link
-              to="/"
-              className="my-3 text-2xl font-bold text-gray-800 dark:text-white hover:underline"
-            >
-              Terms & Conditions
-            </Link>
-            <Link
-              to="/"
-              className="my-3 mb-10 text-2xl font-bold text-gray-800 dark:text-white hover:underline"
-            >
-              Home
-            </Link>
+          <div className="flex-1 flex flex-col justify-end items-end px-4 py-4">
+            <div className="flex-1 border-r border-gray-300 dark:border-gray-600 mr-10"></div>
+            <div className="flex flex-col w-full justify-end items-end p-4 pl-10 border border-gray-300 rounded-xl bg-gray-100 dark:border-gray-600 dark:bg-gray-800 mb-4">
+              <Link
+                to="/terms"
+                className="my-3 text-2xl font-bold text-gray-800 dark:text-white hover:underline text-right flex items-center gap-3"
+              >
+                Terms & Conditions
+                <FaFileContract />
+              </Link>
+              <Link
+                to="/help"
+                className="my-3 text-2xl font-bold text-gray-800 dark:text-white hover:underline text-right flex items-center gap-3"
+              >
+                Help center
+                <MdLiveHelp />
+              </Link>
+              {user && (
+                <Link
+                  to="/contacts"
+                  className="my-3 text-2xl font-bold text-gray-800 dark:text-white hover:underline text-right flex items-center gap-3"
+                >
+                  Contacts
+                  <RiContactsBook2Fill />
+                </Link>
+              )}
+              <Link
+                to="/"
+                className="my-3 text-2xl font-bold text-gray-800 dark:text-white hover:underline text-right flex items-center gap-3"
+              >
+                Home
+                <AiFillHome />
+              </Link>
+              <a
+                href="https://ibcard.info"
+                className="my-3 text-2xl font-bold text-gray-800 dark:text-white hover:underline text-right flex items-center gap-3"
+                target="_blank"
+              >
+                IB Shop
+                <AiFillShopping />
+              </a>
+            </div>
             <div className="flex justify-between w-full">
               {user ? (
                 <AppButton

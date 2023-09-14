@@ -6,6 +6,7 @@ import { Map } from "../Map";
 import { AppButton } from "../ui/AppButton";
 import { FaSave, FaTrash } from "react-icons/fa";
 import { api } from "../../api";
+import toast from "react-hot-toast";
 
 interface ContactDetailsModalProps extends Partial<IModalContainer> {
   contact: Contact;
@@ -28,9 +29,9 @@ export const ContactDetailsModal = ({
     e.preventDefault();
     try {
       await api.put(`/api/contacts/${contact.id}`, contact);
-      //TODO: show toast for success
+      toast.success("Contact updated successfully");
     } catch (e) {
-      //TODO: show toast for error
+      toast.error("Could not update contact. Please refresh and try again.");
       console.log(e);
     }
   }
@@ -57,17 +58,10 @@ export const ContactDetailsModal = ({
         </h1>
         <form onSubmit={submitHandler}>
           <AppInput
-            placeholder="First Name"
+            placeholder="Full Name"
             className="mt-6"
             name="first_name"
             value={contact?.first_name ?? ""}
-            onInput={onInputHandler}
-          />
-          <AppInput
-            placeholder="Last Name"
-            className="mt-6"
-            name="last_name"
-            value={contact?.last_name ?? ""}
             onInput={onInputHandler}
           />
           <AppInput
@@ -77,21 +71,11 @@ export const ContactDetailsModal = ({
             value={contact?.phone ?? ""}
             onInput={onInputHandler}
           />
-
-          <hr className="my-6 border-gray-300 dark:border-gray-500" />
-
           <AppInput
             placeholder="Email"
             className="mt-6"
             name="email"
             value={contact?.email ?? ""}
-            onInput={onInputHandler}
-          />
-          <AppInput
-            placeholder="Title"
-            className="mt-6"
-            name="title"
-            value={contact?.title ?? ""}
             onInput={onInputHandler}
           />
           <AppInput

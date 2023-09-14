@@ -153,8 +153,7 @@ export const Stats = () => {
       if (numOfContacts.data.data.length == 0) {
         setContacts(0);
       } else {
-        console.log(numOfContacts.data.data);
-        setContacts(numOfContacts.data.data.length);
+        setContacts(numOfContacts.data.data.length ?? 0);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -163,30 +162,29 @@ export const Stats = () => {
     const startDate = dateParser(date[0]);
 
     const endDate = dateParser(date[1]);
-
     try {
-      const view = await api.post(`/api/viewed`, {
+      const view = await api.post(`/api/viewed2`, {
         start_time: startDate,
         end_time: endDate,
-        user_id: cardData.id,
-        customer_id: cardData.customer_id,
+        user_id: cardData.user_id,
+        users_data_id: cardData.id,
       });
 
       if (view.data.length == 0) {
         setViews(0);
       } else {
-        setViews(view.data[0]);
+        setViews(view.data.length);
       }
     } catch (error) {
       console.error("Error:", error);
     }
 
     try {
-      const saved = await api.post(`/api/saved`, {
+      const saved = await api.post(`/api/saved2`, {
         start_time: startDate,
         end_time: endDate,
-        user_id: cardData.id,
-        customer_id: cardData.customer_id,
+        user_id: cardData.user_id,
+        users_data_id: cardData.id,
       });
 
       if (saved.data.length == 0) {
@@ -206,6 +204,7 @@ export const Stats = () => {
 
         {
           user_id: cardData.user_id,
+          users_data_id: cardData.id,
           start_time: dateParser(date[0]),
           end_time: dateParser(date[1]),
         }
@@ -306,7 +305,7 @@ export const Stats = () => {
             <div
               key={socialIcon.type}
               className="flex items-center w-full p-4 border 
-      border-gray-300 dark:border-gray-400 m-2 rounded dark:text-white dark:bg-gray-800 rounded-2xl bg-white "
+      border-gray-300 dark:border-gray-400 m-2 dark:text-white dark:bg-gray-800 rounded-2xl bg-white "
             >
               <div className="flex items-center">
                 <div className="text-2xl">{socialIcon.icon}</div>
