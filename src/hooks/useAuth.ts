@@ -15,8 +15,8 @@ export const useAuth = () => {
   const navigate = useNavigate();
   const { setUser } = useUserContext();
   const [isLoading, setIsLoading] = useState(false);
-  const [email, setEmail] = useState("peric.bojan87@gmail.com");
-  const [password, setPassword] = useState("1234567");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   async function attemptLogin(e: SyntheticEvent) {
     e.preventDefault();
