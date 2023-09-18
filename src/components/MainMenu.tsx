@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { IoCloseOutline } from "react-icons/io5";
 import { ThemeToggle } from "./ThemeToggle";
 import { AppLogo } from "./ui/AppLogo";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { AppButton } from "./ui/AppButton";
 import { useAuth } from "../hooks/useAuth";
@@ -15,6 +15,7 @@ import { AiFillHome, AiFillShopping } from "react-icons/ai";
 import { MdLiveHelp } from "react-icons/md";
 
 export const MainMenu = () => {
+  const { cardId } = useParams();
   const { user } = useUserContext();
   const { isMainMenuOpen, closeMainMenu } = useModalsContext();
   const { attemptLogout } = useAuth();
@@ -55,28 +56,21 @@ export const MainMenu = () => {
                 Terms & Conditions
                 <FaFileContract />
               </Link>
+              {user && (
+                <Link
+                  to={cardId ? `/contacts/${cardId}` : "/contacts"}
+                  className="my-3 text-2xl font-bold text-gray-800 dark:text-white hover:underline text-right flex items-center gap-3"
+                >
+                  My Connections
+                  <RiContactsBook2Fill />
+                </Link>
+              )}
               <Link
                 to="/help"
                 className="my-3 text-2xl font-bold text-gray-800 dark:text-white hover:underline text-right flex items-center gap-3"
               >
                 Help center
                 <MdLiveHelp />
-              </Link>
-              {user && (
-                <Link
-                  to="/contacts"
-                  className="my-3 text-2xl font-bold text-gray-800 dark:text-white hover:underline text-right flex items-center gap-3"
-                >
-                  Contacts
-                  <RiContactsBook2Fill />
-                </Link>
-              )}
-              <Link
-                to="/"
-                className="my-3 text-2xl font-bold text-gray-800 dark:text-white hover:underline text-right flex items-center gap-3"
-              >
-                Home
-                <AiFillHome />
               </Link>
               <a
                 href="https://ibcard.info"
@@ -86,6 +80,13 @@ export const MainMenu = () => {
                 IB Shop
                 <AiFillShopping />
               </a>
+              <Link
+                to="/"
+                className="my-3 text-2xl font-bold text-gray-800 dark:text-white hover:underline text-right flex items-center gap-3"
+              >
+                Home
+                <AiFillHome />
+              </Link>
             </div>
             <div className="flex justify-between w-full">
               {user ? (

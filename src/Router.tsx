@@ -5,6 +5,7 @@ import {
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
+  useNavigate,
 } from "react-router-dom";
 import { FC, useEffect } from "react";
 import { Login } from "./views/Login";
@@ -20,6 +21,8 @@ import { Contacts } from "./views/Contacts";
 import { RegisterCardPage } from "./views/RegisterCard";
 import { HelpPage } from "./views/Help";
 import { TermsPage } from "./views/Terms";
+import { ForgotPassword } from "./views/ForgotPasswrod";
+import { ResetPassword } from "./views/ResetPassword";
 
 const authRouter = createBrowserRouter(
   createRoutesFromElements(
@@ -28,12 +31,15 @@ const authRouter = createBrowserRouter(
       <Route path="login" element={<Login />} />
       <Route path="register/:token" element={<RegisterCardPage />} />
       <Route path="contacts" element={<Contacts />} />
+      <Route path="contacts/:cardId" element={<Contacts />} />
       <Route path="card/:cardId" element={<FrontPage />} />
-      <Route path="card/:cardId/edit" element={<EditPage />} />
-      <Route path="card/:cardId/stats" element={<Stats />} />
-      <Route path="card/:cardId/portal" element={<CompanyPortal />} />
+      <Route path="edit/:cardId" element={<EditPage />} />
+      <Route path="stats/:cardId" element={<Stats />} />
+      <Route path="portal/:cardId" element={<CompanyPortal />} />
       <Route path="help" element={<HelpPage />} />
       <Route path="terms" element={<TermsPage />} />
+      <Route path="forgot-password" element={<ForgotPassword />} />
+      <Route path="reset-password/:token" element={<ResetPassword />} />
     </Route>
   )
 );
@@ -46,13 +52,14 @@ const publicRouter = createBrowserRouter(
       <Route path="card/:cardId" element={<FrontPage />} />
       <Route path="help" element={<HelpPage />} />
       <Route path="terms" element={<TermsPage />} />
+      <Route path="forgot-password" element={<ForgotPassword />} />
+      <Route path="reset-password/:token" element={<ResetPassword />} />
     </Route>
   )
 );
 
 export const Router: FC = () => {
   const { user, setUser } = useUserContext();
-
   async function autoLogin() {
     try {
       const res = await api.get("/api/me");

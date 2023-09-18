@@ -1,10 +1,12 @@
 import axios from "axios";
 
-const webAppUrl = import.meta.env.DEV ? "http://localhost:5173" : "";
+const webAppUrl = import.meta.env.DEV
+  ? "http://localhost:5173"
+  : "ibcard.netlify.app";
 
 const baseUrl = import.meta.env.DEV
   ? "http://127.0.0.1:8000"
-  : "http://157.230.107.80";
+  : "https://ibcards-api.com";
 
 const api = axios.create({
   baseURL: baseUrl, // `https://ibcards-api-a4v5r.ondigitalocean.app`,

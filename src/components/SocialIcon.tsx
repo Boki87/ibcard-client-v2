@@ -8,8 +8,9 @@ interface SocialIconProps {
 }
 
 export const SocialIcon = ({ type, title, ...props }: SocialIconProps) => {
-  const icon = SOCIAL_ICONS.filter((i) => i.type === type)[0];
-
+  const icon = SOCIAL_ICONS.filter(
+    (i) => i.type.toLowerCase() === type.toLowerCase()
+  )[0];
   function formatTypeTitle(title: string) {
     if (title === "custom_url") {
       return "link";

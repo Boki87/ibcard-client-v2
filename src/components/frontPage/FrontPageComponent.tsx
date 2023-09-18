@@ -57,8 +57,10 @@ export const FrontPageComponent = ({ cardData }: FrontPageComponentProps) => {
         <UserMainInfo
           email={cardData.email}
           mobile={cardData.mobile}
-          whatsapp={cardData.whatsapp}
-          viber={cardData.viber}
+          whatsapp={cardData.mobile}
+          viber={cardData.mobile}
+          address={cardData.address}
+          website={cardData.website}
         />
       </div>
 

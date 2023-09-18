@@ -60,7 +60,7 @@ export const Login = () => {
           </AppButton>
           <p className="text-gray-700 dark:text-white text-center mb-8">
             By continuing you accept our{" "}
-            <Link to="/privacy" className="text-blue-400 hover:underline">
+            <Link to="/terms" className="text-blue-400 hover:underline">
               Privacy Policy
             </Link>{" "}
             and{" "}

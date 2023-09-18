@@ -7,7 +7,7 @@ function App() {
   return (
     <AppShellLayout>
       <Router />
-      <Toaster toastOptions={{ position: "bottom-center", duration: 3000 }} />
+      <Toaster toastOptions={{ position: "top-center", duration: 4000 }} />
     </AppShellLayout>
   );
 }

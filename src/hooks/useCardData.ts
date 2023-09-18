@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { api } from "../api";
 import { Card } from "../types/Card";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useUserContext } from "../context/UserContext";
 
 export const useCardData = (cardId: string) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
   const [cardData, setCardData] = useState<Card | null>(null);
+  const { user } = useUserContext();
 
   async function fetchCardData() {
     try {
@@ -29,8 +32,9 @@ export const useCardData = (cardId: string) => {
   }
 
   useEffect(() => {
+    if (!cardId) return;
     fetchCardData();
-  }, []);
+  }, [cardId]);
 
   return {
     isLoading,

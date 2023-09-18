@@ -5,19 +5,45 @@ import { BsPeople } from "react-icons/bs";
 import { CiCreditCard2, CiEdit } from "react-icons/ci";
 import { SlHome } from "react-icons/sl";
 import { GiChart } from "react-icons/gi";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { useModalsContext } from "../../context/ModalsContext";
 import { MainMenu } from "../MainMenu";
 import { QRModal } from "../QRModal";
 import { useUserContext } from "../../context/UserContext";
 import { useCardData } from "../../hooks/useCardData";
+import { FaAddressBook } from "react-icons/fa";
+import { MdContacts } from "react-icons/md";
 
-const dontShowBottomNav = ["/", "/contacts"];
+const dontShowBottomNav = ["/"];
 
 export const AppLayout = () => {
   const { user } = useUserContext();
   const { openMainMenu } = useModalsContext();
   const location = useLocation();
+  const { cardId } = useParams();
+  const { cardData, isLoading } = useCardData(cardId);
+  let showNav = false;
+  if (!isLoading && user && !dontShowBottomNav.includes(location.pathname)) {
+    showNav = true;
+  }
+
+  const pageTitles = {
+    "/card": "Card Preview",
+    "/edit": "Edit Card",
+    "/stats": "Edit Card",
+    "/portal": "Company Portal",
+    "/contacts": "Your Connections",
+  };
+  let pageTitle = "";
+  for (const [key, val] of Object.entries(pageTitles)) {
+    if (location.pathname.startsWith(key)) {
+      pageTitle = val;
+      break;
+    } else {
+      pageTitle = "";
+    }
+  }
+
   return (
     <>
       <div
@@ -31,7 +57,13 @@ export const AppLayout = () => {
           <Link to="/">
             <AppLogo />
           </Link>
-          <div className="flex-1"></div>
+          <div className="flex-1 text-center">
+            {user && (
+              <span className="uppercase text-gray-900 dark:text-gray-200">
+                {pageTitle}
+              </span>
+            )}
+          </div>
           <button
             onClick={openMainMenu}
             className="w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-lg flex items-center justify-center dark:text-white"
@@ -44,9 +76,7 @@ export const AppLayout = () => {
         <Outlet />
 
         {/* bottom nav */}
-        {user && !dontShowBottomNav.includes(location.pathname) && (
-          <BottomNav />
-        )}
+        {showNav ? <BottomNav /> : null}
         {/* bottom nav end */}
       </div>
 
@@ -61,10 +91,9 @@ const BottomNav = () => {
   const { cardId } = useParams();
   const { cardData, isLoading } = useCardData(cardId);
 
-  if (isLoading || !cardData) return null;
-
+  if (isLoading) return null;
+  if (!cardData) return null;
   if (user.id !== cardData.user_id) return null;
-
   return (
     <div className="absolute bottom-0 left-0 w-full h-14 backdrop-blur bg-white/60 dark:bg-black/40 flex items-center justify-around px-4">
       <BottomNavLink to="/">
@@ -73,14 +102,14 @@ const BottomNav = () => {
       <BottomNavLink to={`/card/${cardId}`}>
         <CiCreditCard2 />
       </BottomNavLink>
-      <BottomNavLink to={`/card/${cardId}/edit`}>
+      <BottomNavLink to={`/edit/${cardId}`}>
         <CiEdit />
       </BottomNavLink>
-      <BottomNavLink to={`/card/${cardId}/stats`}>
-        <GiChart className="text-2xl" />
+      <BottomNavLink to={`/contacts/${cardId}`}>
+        <MdContacts className="text-2xl" />
       </BottomNavLink>
       {cardData.company ? (
-        <BottomNavLink to={`/card/${cardId}/portal`}>
+        <BottomNavLink to={`/portal/${cardId}`}>
           <BsPeople className="text-3xl" />
         </BottomNavLink>
       ) : null}

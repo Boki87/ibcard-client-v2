@@ -84,9 +84,9 @@ export const UserCardEdit = ({
         <div className="flex-1 flex flex-col justify-start">
           <label
             htmlFor="avatar"
-            className="flex justify-center mb-1 text-xs md:text-sm"
+            className="flex justify-center mb-1 text-xs md:text-sm text-center"
           >
-            Change Avatar
+            Change Profile Picture
           </label>
           <div className="flex justify-center">
             <label htmlFor="avatar" className="flex justify-center">

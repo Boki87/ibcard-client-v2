@@ -12,4 +12,5 @@ export type SocialType =
   | "custom_url"
   | "video"
   | "special_offer"
-  | "catalogue";
+  | "catalogue"
+  | "flyer";

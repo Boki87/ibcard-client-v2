@@ -17,13 +17,14 @@ import {
 import { countries } from "../lib/countries";
 import { departments } from "../lib/departments";
 import { webAppUrl } from "../api";
-import { redirect, useParams } from "react-router-dom";
+import { redirect, useNavigate, useParams } from "react-router-dom";
 import { useCardData } from "../hooks/useCardData";
 import { EmployeeCard } from "../components/companyPortalPage/EmployeeCard";
 import { useEmployees } from "../hooks/useEmployees";
 import { useModalsContext } from "../context/ModalsContext";
 
 export const CompanyPortal = () => {
+  const navigate = useNavigate();
   const { qrModal } = useModalsContext();
   const { cardId } = useParams();
   if (!cardId) {
@@ -218,7 +219,7 @@ export const CompanyPortal = () => {
                   const cardId = emp.nfc_card?.link.substring(
                     emp.nfc_card?.link.lastIndexOf("/") + 1
                   );
-                  location.href = `${webAppUrl}/card/${cardId}`;
+                  navigate(`/card/${cardId}`);
                 }}
                 onShare={() => {
                   const cardId = emp.nfc_card?.link.substring(

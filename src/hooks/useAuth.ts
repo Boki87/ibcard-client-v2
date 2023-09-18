@@ -44,6 +44,7 @@ export const useAuth = () => {
       localStorage.removeItem("ibcards-user-token");
       setUser(null);
       setIsLoading(false);
+      navigate("/");
     } catch (e) {
       console.log(e);
       setIsLoading(false);

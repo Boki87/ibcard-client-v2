@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 function useDarkMode() {
   const [theme, setTheme] = useState(
-    () => localStorage.getItem("ibcard-theme") || "light"
+    () => localStorage.getItem("ibcard-theme") || "dark"
   );
 
   useEffect(() => {

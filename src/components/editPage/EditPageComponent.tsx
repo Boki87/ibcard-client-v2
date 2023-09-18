@@ -17,6 +17,7 @@ import { useParams } from "react-router-dom";
 import { VideosEditWidget } from "./editVideos/VideosEditWidget";
 import { OffersEditWidget } from "./editOffers/OffersEditWidget";
 import { CatalogueEditWidget } from "./editCatalouges/CatalogueEditWidget";
+import { ImLocation } from "react-icons/im";
 import toast from "react-hot-toast";
 
 interface EditPageComponentProps {
@@ -48,6 +49,14 @@ export const EditPageComponent = ({ cardData }: EditPageComponentProps) => {
   async function saveChangesHandler() {
     try {
       setIsUpdating(true);
+
+      //first name must be set
+      if (!initialCardData.first_name || initialCardData.first_name === "") {
+        setShowButton(false);
+        setIsUpdating(false);
+        return toast.error("Please fill your first name first");
+      }
+
       let res = await api.put(
         `api/card-data/${initialCardData.id}`,
         initialCardData
@@ -62,8 +71,9 @@ export const EditPageComponent = ({ cardData }: EditPageComponentProps) => {
       initialCacheData.current = res.data;
       setInitialCardData(res.data);
       setIsUpdating(false);
+      toast.success("Changes saved successfully!");
     } catch (e) {
-      alert("Could not update data");
+      toast.error("Could not save data. Please refresh and try again.");
       setIsUpdating(false);
     }
   }
@@ -104,6 +114,9 @@ export const EditPageComponent = ({ cardData }: EditPageComponentProps) => {
       "company_role",
       "mobile",
       "website",
+      "company_name",
+      "address",
+      "email",
     ];
     for (const prop of propsToCompare) {
       //@ts-ignore
@@ -141,24 +154,36 @@ export const EditPageComponent = ({ cardData }: EditPageComponentProps) => {
           </option>
         ))}
       </AppSelect>
-      <AppSelect
-        leftIcon={<BsFillBuildingFill />}
-        className="my-3 mx-auto"
-        value={initialCardData.department || ""}
-        name="department"
-        onChange={selectChangeHandler}
-      >
-        {departments.map((department) => (
-          <option value={department} key={department}>
-            {department}
-          </option>
-        ))}
-      </AppSelect>
+      {initialCardData.company && (
+        <AppSelect
+          leftIcon={<BsFillBuildingFill />}
+          className="my-3 mx-auto"
+          value={initialCardData.department || ""}
+          name="department"
+          onChange={selectChangeHandler}
+        >
+          {departments.map((department) => (
+            <option value={department} key={department}>
+              {department}
+            </option>
+          ))}
+        </AppSelect>
+      )}
+      {!initialCardData.company && (
+        <AppInput
+          leftIcon={<BsFillBuildingFill />}
+          placeholder="Company Name"
+          name="company_name"
+          value={initialCardData.company_name || ""}
+          onChange={inputChangeHandler}
+          className="my-3 mx-auto"
+        />
+      )}
       <AppInput
         leftIcon={<FaUserTag />}
         placeholder="Role"
         name="company_role"
-        value={initialCardData.company_role}
+        value={initialCardData.company_role || ""}
         onChange={inputChangeHandler}
         className="my-3 mx-auto"
       />
@@ -166,7 +191,7 @@ export const EditPageComponent = ({ cardData }: EditPageComponentProps) => {
         leftIcon={<BsTelephoneFill />}
         placeholder="Phone"
         name="mobile"
-        value={initialCardData.mobile}
+        value={initialCardData.mobile || ""}
         onChange={inputChangeHandler}
         className="my-3 mt-6 mx-auto"
       />
@@ -174,7 +199,7 @@ export const EditPageComponent = ({ cardData }: EditPageComponentProps) => {
         leftIcon={<MdEmail />}
         placeholder="Email"
         name="email"
-        value={initialCardData.email}
+        value={initialCardData.email || ""}
         onChange={inputChangeHandler}
         className="my-3 mx-auto"
       />
@@ -182,11 +207,18 @@ export const EditPageComponent = ({ cardData }: EditPageComponentProps) => {
         leftIcon={<AiOutlineLink />}
         placeholder="Website"
         name="website"
-        value={initialCardData.website}
+        value={initialCardData.website || ""}
         onChange={inputChangeHandler}
         className="my-3 mx-auto"
       />
-
+      <AppInput
+        leftIcon={<ImLocation />}
+        placeholder="Address"
+        name="address"
+        value={initialCardData.address || ""}
+        onChange={inputChangeHandler}
+        className="my-3 mx-auto"
+      />
       <SocialsEditWidget
         initialSocials={initialCardData.social_links ?? []}
         cardId={initialCardData.id}

@@ -6,13 +6,14 @@ import { AppInput } from "../components/ui/AppInput";
 import { useContacts } from "../hooks/useContacts";
 import { useUserContext } from "../context/UserContext";
 import { ContactCard } from "../components/contactsPage/ContactCard";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ContactDetailsModal } from "../components/contactsPage/ContactDetailsModal";
 import { Contact } from "../types/Contacts";
 import { exportCsv } from "../lib/utils";
-import { FaFileCsv} from "react-icons/fa";
+import { FaFileCsv } from "react-icons/fa";
 
 export const Contacts = () => {
+  const { cardId } = useParams();
   const navigate = useNavigate();
   const [queryName, setQueryName] = useState("");
   const [filterByLetter, setFilterByLetter] = useState("");
@@ -40,7 +41,6 @@ export const Contacts = () => {
     });
   }, [contacts, queryName]);
 
-
   const csvContacts = filteredContacts.map((contact, index) => ({
     "": index + 1,
     Name: contact.first_name,
@@ -50,9 +50,6 @@ export const Contacts = () => {
     Phone: contact.phone,
     Email: contact.email,
   }));
-
-
-  
 
   const contactCardRefs = useRef([]);
   function letterChangeHandler(letter: string) {
@@ -83,12 +80,11 @@ export const Contacts = () => {
   return (
     <div>
       <div className="text-2xl font-bold text-center my-3 text-gray-800 dark:text-gray-200 uppercase flex items-center px-4">
-        <button onClick={goBack} className="p-2 h-full w-10">
-          <FaChevronLeft />
-        </button>
-        <div className="flex-1">
-          <span className="mr-8">Your Contacts</span>
-        </div>
+        {!cardId && (
+          <button onClick={goBack} className="p-2 h-full w-10">
+            <FaChevronLeft />
+          </button>
+        )}
       </div>
       <div className="flex space-x-2 mb-4 px-4">
         <AppInput
@@ -106,11 +102,12 @@ export const Contacts = () => {
         >
           <SlRefresh />
         </button>
-        <button
-            className="w-10 h-10 min-w-[40px] rounded-full flex items-center justify-center dark:text-white"
-          >
-            <FaFileCsv onClick={() => exportCsv(csvContacts)}  className="text-3xl dark:text-white cursor-pointer" />
-          </button>
+        <button className="w-10 h-10 min-w-[40px] rounded-full flex items-center justify-center dark:text-white">
+          <FaFileCsv
+            onClick={() => exportCsv(csvContacts)}
+            className="text-3xl dark:text-white cursor-pointer"
+          />
+        </button>
       </div>
       <AlphaPicker
         selectedLetter={filterByLetter}
@@ -138,6 +135,11 @@ export const Contacts = () => {
               key={contact.id}
             />
           ))}
+        {!isLoading && filteredContacts.length === 0 ? (
+          <p className="mt-6 text-center text-lg text-gray-800 dark:text-gray-200 uppercase">
+            No connections yet
+          </p>
+        ) : null}
       </div>
       <ContactDetailsModal
         isOpen={showContactModal}
