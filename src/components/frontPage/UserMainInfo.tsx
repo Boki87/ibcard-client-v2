@@ -14,7 +14,9 @@ const infoIcons = {
 
 interface UserMainInfoProps {
   email?: string;
+  email2?: string;
   mobile?: string;
+  mobile2?: string;
   whatsapp?: string;
   viber?: string;
   address?: string;
@@ -23,7 +25,9 @@ interface UserMainInfoProps {
 
 export const UserMainInfo = ({
   email,
+  email2,
   mobile,
+  mobile2,
   whatsapp,
   viber,
   address,
@@ -36,6 +40,8 @@ export const UserMainInfo = ({
         {mobile && <UserInfoItem type="mobile" val={mobile} />}
         {whatsapp && <UserInfoItem type="whatsapp" val={whatsapp} />}
         {viber && <UserInfoItem type="viber" val={viber} />}
+        {mobile2 && <UserInfoItem type="mobile" val={mobile2} />}
+        {email2 && <UserInfoItem type="email" val={email2} />}
         {address && <UserInfoItem type="address" val={address} />}
         {website && <UserInfoItem type="website" val={website} />}
       </div>

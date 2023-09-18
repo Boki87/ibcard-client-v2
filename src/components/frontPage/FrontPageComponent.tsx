@@ -56,7 +56,9 @@ export const FrontPageComponent = ({ cardData }: FrontPageComponentProps) => {
       <div className="px-4">
         <UserMainInfo
           email={cardData.email}
+          email2={cardData.email_2}
           mobile={cardData.mobile}
+          mobile2={cardData.mobile_2}
           whatsapp={cardData.mobile}
           viber={cardData.mobile}
           address={cardData.address}

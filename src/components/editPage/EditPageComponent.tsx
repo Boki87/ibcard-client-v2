@@ -113,10 +113,12 @@ export const EditPageComponent = ({ cardData }: EditPageComponentProps) => {
       "department",
       "company_role",
       "mobile",
+      "mobile_2",
       "website",
       "company_name",
       "address",
       "email",
+      "email_2",
     ];
     for (const prop of propsToCompare) {
       //@ts-ignore
@@ -196,10 +198,26 @@ export const EditPageComponent = ({ cardData }: EditPageComponentProps) => {
         className="my-3 mt-6 mx-auto"
       />
       <AppInput
+        leftIcon={<BsTelephoneFill />}
+        placeholder="Phone 2"
+        name="mobile_2"
+        value={initialCardData.mobile_2 || ""}
+        onChange={inputChangeHandler}
+        className="my-3 mx-auto"
+      />
+      <AppInput
         leftIcon={<MdEmail />}
         placeholder="Email"
         name="email"
         value={initialCardData.email || ""}
+        onChange={inputChangeHandler}
+        className="my-3 mx-auto"
+      />
+      <AppInput
+        leftIcon={<MdEmail />}
+        placeholder="Email 2"
+        name="email_2"
+        value={initialCardData.email_2 || ""}
         onChange={inputChangeHandler}
         className="my-3 mx-auto"
       />
