@@ -36,7 +36,7 @@ export const UserOffers = ({ cardData }: UserSocialsProps) => {
 
   return (
     <div className="mt-4 mb-6">
-      <div className="px-6 mb-2 text-gray-800 dark:text-gray-300 font-bold">
+      <div className="px-1 mb-2 text-gray-800 dark:text-gray-300 font-bold max-w-xs mx-auto">
         Special Offers
       </div>
 

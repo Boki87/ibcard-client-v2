@@ -6,6 +6,8 @@ export function saveVcf(contact: Card) {
     first_name,
     last_name,
     company_role,
+    company,
+    company_name,
     mobile,
     mobile_2,
     website,
@@ -14,36 +16,52 @@ export function saveVcf(contact: Card) {
     viber,
     social_links,
     email,
+    nfc_card,
   } = contact;
   const myVCard = new VCard();
   myVCard.addName(last_name || "", first_name || "");
+
+  if (company) {
+    myVCard.addCompany(company.name);
+  } else if (company_name) {
+    myVCard.addCompany(company_name);
+  }
+
+  if (company_role) {
+    myVCard.addJobtitle(company_role);
+  }
+
   if (mobile) {
     myVCard.addPhoneNumber(mobile);
   }
   if (email) {
     myVCard.addEmail(email);
   }
-  if (mobile_2) {
-    myVCard.addPhoneNumber(mobile_2);
-  }
   if (website) {
     myVCard.addURL(website);
   }
-  if (website2) {
-    myVCard.addURL(website2);
-  }
-  if (whatsapp) {
-    myVCard.addPhoneNumber(whatsapp);
-  }
-  if (viber) {
-    myVCard.addPhoneNumber(viber);
+  if (nfc_card) {
+    myVCard.addURL(nfc_card.link);
   }
 
-  social_links?.forEach((link) => {
-    if (link.url) {
-      myVCard.addURL(link.url);
-    }
-  });
+  // if (mobile_2) {
+  //   myVCard.addPhoneNumber(mobile_2);
+  // }
+  // if (website2) {
+  //   myVCard.addURL(website2);
+  // }
+  // if (whatsapp) {
+  //   myVCard.addPhoneNumber(whatsapp);
+  // }
+  // if (viber) {
+  //   myVCard.addPhoneNumber(viber);
+  // }
+
+  // social_links?.forEach((link) => {
+  //   if (link.url) {
+  //     myVCard.addURL(link.url);
+  //   }
+  // });
 
   const blob = new Blob([myVCard.toString()], { type: "text/vcard" });
   const elem = window.document.createElement("a");

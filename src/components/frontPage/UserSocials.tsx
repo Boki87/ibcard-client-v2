@@ -39,8 +39,8 @@ export const UserSocials = ({ cardData }: UserSocialsProps) => {
     } catch (error) {
       console.error("Error:", error);
     }
-    if (!href) return;
-    window.open(href, "_blank");
+    // if (!href) return;
+    // window.open(href, "_blank");
   }
 
   return (
@@ -50,15 +50,21 @@ export const UserSocials = ({ cardData }: UserSocialsProps) => {
       <div className="grid grid-cols-3 gap-4 max-w-xs mx-auto">
         {commonSocials.map((social) => (
           <div className="flex justify-center" key={social.id}>
-            <SocialIcon
-              onClick={() =>
-                handleSocialClick(social.url, social.id, social.type)
-              }
-              url={social.url || ""}
-              type={social.type}
-              title={social.title}
-              key={social.id}
-            />
+            <a
+              href={social.url || ""}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <SocialIcon
+                onClick={() =>
+                  handleSocialClick(social.url, social.id, social.type)
+                }
+                url={social.url || ""}
+                type={social.type}
+                title={social.title}
+                key={social.id}
+              />
+            </a>
           </div>
         ))}
       </div>
