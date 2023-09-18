@@ -60,13 +60,26 @@ const UserInfoItem = ({ type, val }: UserInfoProps) => {
   if (type === "address") {
     href = "https://maps.google.com/maps?q=" + encodeURIComponent(val);
   }
+  let style = "bg-slate-100 dark:bg-slate-700";
+  if (type === "whatsapp") {
+    style = "bg-green-600";
+  }
+  if (type === "viber") {
+    style = "bg-purple-600";
+  }
+
   return (
     <a
       href={href}
       target={type === "website" || type === "address" ? "_blank" : "_self"}
       className="flex items-center space-x-2"
     >
-      <div className="flex items-center justify-center min-w-[32px] min-h-[32px] rounded-lg border border-gray-400 dark:border-gray-400 text-gray-700 dark:text-gray-300 bg-slate-100 dark:bg-slate-700">
+      <div
+        className={
+          "flex items-center justify-center min-w-[32px] min-h-[32px] rounded-lg border border-gray-400 dark:border-gray-400 text-gray-700 dark:text-gray-300 " +
+          style
+        }
+      >
         {infoIcons[type]}
       </div>
       <span className="text-xs text-gray-700 dark:text-gray-200 truncate">
