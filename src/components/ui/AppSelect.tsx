@@ -66,8 +66,7 @@ export const AppSelect = ({
       <select
         autoComplete="off"
         ref={inputRef}
-        //@ts-ignore
-        style={{ "-webkit-appearance": "none" }}
+        style={{ WebkitAppearance: "none" }}
         className="outline-none border-none w-full h-full px-4 bg-transparent rounded-full text-gray-800 placeholder:text-gray-500 dark:text-white dark:placeholder-white"
         {...rest}
       >
