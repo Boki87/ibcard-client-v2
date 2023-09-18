@@ -13,11 +13,15 @@ export function saveVcf(contact: Card) {
     whatsapp,
     viber,
     social_links,
+    email,
   } = contact;
   const myVCard = new VCard();
-  myVCard.addName(last_name || "", first_name || "", company_role || "");
+  myVCard.addName(last_name || "", first_name || "");
   if (mobile) {
     myVCard.addPhoneNumber(mobile);
+  }
+  if (email) {
+    myVCard.addEmail(email);
   }
   if (mobile_2) {
     myVCard.addPhoneNumber(mobile_2);
