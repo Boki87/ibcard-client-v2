@@ -102,6 +102,7 @@ export const SOCIAL_ICONS: SocialIcon[] = [
     name: "Video",
     type: "video",
     icon: <FaYoutube />,
+    bg: "bg-black",
   },
   {
     name: "Special Offers",
