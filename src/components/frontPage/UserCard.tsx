@@ -64,7 +64,7 @@ export const UserCard = ({ data, onQrCodeClick }: UserCardProps) => {
         </div>
         <div
           onClick={() => onQrCodeClick(true)}
-          className="text-sm flex items-center hover:underline dark:text-gray-200"
+          className="text-sm flex items-center hover:underline dark:text-gray-200 cursor-pointer"
         >
           Share Card <BsFillShareFill className="ml-2" />
         </div>

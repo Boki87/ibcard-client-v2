@@ -68,15 +68,29 @@ const UserInfoItem = ({ type, val }: UserInfoProps) => {
   }
   let style = "bg-slate-100 dark:bg-slate-700";
   if (type === "whatsapp") {
-    style = "bg-green-600";
+    style = "bg-green-600 text-white border-green-600 dark:border-green-600";
   }
   if (type === "viber") {
-    style = "bg-purple-600";
+    style = "bg-purple-600 text-white border-purple-600 dark:border-purple-600";
+  }
+
+  function sanitizeLinkToHaveHttp(url?: string) {
+    if (!url) return "";
+    if (!url.startsWith("http")) {
+      return `https://${url}`;
+    }
+    return url;
+  }
+
+  let sanitizedHref = href;
+
+  if (type === "website") {
+    sanitizedHref = sanitizeLinkToHaveHttp(href);
   }
 
   return (
     <a
-      href={href}
+      href={sanitizedHref}
       target={type === "website" || type === "address" ? "_blank" : "_self"}
       className="flex items-center space-x-2"
     >

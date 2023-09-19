@@ -30,7 +30,7 @@ export const AppLayout = () => {
   const pageTitles = {
     "/card": "Card Preview",
     "/edit": "Edit Card",
-    "/stats": "Edit Card",
+    "/stats": "Card Insights",
     "/portal": "Company Portal",
     "/contacts": "Your Connections",
   };

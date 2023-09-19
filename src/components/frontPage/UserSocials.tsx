@@ -43,6 +43,14 @@ export const UserSocials = ({ cardData }: UserSocialsProps) => {
     // window.open(href, "_blank");
   }
 
+  function sanitizeLinkToHaveHttp(url?: string) {
+    if (!url) return "";
+    if (!url.startsWith("http")) {
+      return `https://${url}`;
+    }
+    return url;
+  }
+
   return (
     <div className="mt-6 mb-6">
       {videos &&
@@ -51,7 +59,7 @@ export const UserSocials = ({ cardData }: UserSocialsProps) => {
         {commonSocials.map((social) => (
           <div className="flex justify-center" key={social.id}>
             <a
-              href={social.url || ""}
+              href={sanitizeLinkToHaveHttp(social.url)}
               target="_blank"
               rel="noopener noreferrer"
             >

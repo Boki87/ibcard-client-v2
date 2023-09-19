@@ -32,7 +32,12 @@ export const SocialIcon = ({ type, title, ...props }: SocialIconProps) => {
             </div>
           </div>
         ) : (
-          <div className="w-20 h-20 flex items-center justify-center bg-gradient-to-tr from-slate-400 to-white rounded-xl text-3xl text-gray-700 dark:from-black dark:to-slate-600 dark:text-gray-200">
+          <div
+            className={[
+              "w-20 h-20 flex items-center justify-center rounded-xl text-4xl text-gray-100",
+              icon.bg || "",
+            ].join(" ")}
+          >
             {icon.icon}
           </div>
         )}
@@ -40,7 +45,7 @@ export const SocialIcon = ({ type, title, ...props }: SocialIconProps) => {
       {type !== "special_offer" && (
         <div className="flex justify-center">
           <p
-            className="text-sm text-gray-700 truncate dark:text-gray-200 capitalize"
+            className="text-sm text-gray-700 truncate dark:text-gray-200"
             title={title ? title : formatTypeTitle(type)}
           >
             {title ? title : formatTypeTitle(type)}
