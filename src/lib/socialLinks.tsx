@@ -13,6 +13,8 @@ import {
   FaYoutube,
   FaBook,
   FaLinkedin,
+  FaWhatsapp,
+  FaViber,
 } from "react-icons/fa";
 
 interface SocialIcon {
@@ -23,6 +25,18 @@ interface SocialIcon {
 }
 
 export const SOCIAL_ICONS: SocialIcon[] = [
+  {
+    name: "Whatsapp",
+    type: "whatsapp",
+    icon: <FaWhatsapp />,
+    bg: "bg-green-500",
+  },
+  {
+    name: "Viber",
+    type: "viber",
+    icon: <FaViber />,
+    bg: "bg-purple-500",
+  },
   {
     name: "Facebook",
     type: "facebook",

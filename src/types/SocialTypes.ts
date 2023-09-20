@@ -13,4 +13,6 @@ export type SocialType =
   | "video"
   | "special_offer"
   | "catalogue"
+  | "whatsapp"
+  | "viber"
   | "flyer";

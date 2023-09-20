@@ -7,7 +7,7 @@ import { IoCloseOutline } from "react-icons/io5";
 import { SocialIcon } from "../../SocialIcon";
 import { AppInput } from "../../ui/AppInput";
 import { MdOutlineTitle } from "react-icons/md";
-import { FaLink, FaSave, FaTrash } from "react-icons/fa";
+import { FaLink, FaPhone, FaSave, FaTrash } from "react-icons/fa";
 import { AppButton } from "../../ui/AppButton";
 import { AppToggle } from "../../ui/AppToggle";
 
@@ -75,6 +75,14 @@ export const SocialsEditor = ({
     onClose();
   }
 
+  let isPhoneType = false;
+  if (
+    socialData &&
+    (socialData.type === "whatsapp" || socialData.type === "viber")
+  ) {
+    isPhoneType = true;
+  }
+
   useEffect(() => {
     if (!socialId) return;
     fetchSocial();
@@ -123,8 +131,8 @@ export const SocialsEditor = ({
             />
             <AppInput
               value={socialData?.url ?? ""}
-              placeholder="URL"
-              leftIcon={<FaLink />}
+              placeholder={isPhoneType ? "+000 000 000" : "URL"}
+              leftIcon={isPhoneType ? <FaPhone /> : <FaLink />}
               className="mb-4"
               onChange={(e: SyntheticEvent) => {
                 const input = e.target as HTMLInputElement;

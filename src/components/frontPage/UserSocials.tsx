@@ -43,8 +43,15 @@ export const UserSocials = ({ cardData }: UserSocialsProps) => {
     // window.open(href, "_blank");
   }
 
-  function sanitizeLinkToHaveHttp(url?: string) {
+  function sanitizeLinkToHaveHttp(url?: string, type?: string) {
     if (!url) return "";
+    if (type === "whatsapp") {
+      return `https://api.whatsapp.com/send?phone=${url}`;
+    }
+    if (type === "viber") {
+      return `viber://add?number=${url}`;
+    }
+
     if (!url.startsWith("http")) {
       return `https://${url}`;
     }
@@ -59,7 +66,7 @@ export const UserSocials = ({ cardData }: UserSocialsProps) => {
         {commonSocials.map((social) => (
           <div className="flex justify-center" key={social.id}>
             <a
-              href={sanitizeLinkToHaveHttp(social.url)}
+              href={sanitizeLinkToHaveHttp(social.url, social.type)}
               target="_blank"
               rel="noopener noreferrer"
             >

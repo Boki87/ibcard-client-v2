@@ -38,8 +38,8 @@ export const UserMainInfo = ({
       <div className="grid grid-cols-2 gap-4">
         {email && <UserInfoItem type="email" val={email} />}
         {mobile && <UserInfoItem type="mobile" val={mobile} />}
-        {whatsapp && <UserInfoItem type="whatsapp" val={whatsapp} />}
-        {viber && <UserInfoItem type="viber" val={viber} />}
+        {/* {whatsapp && <UserInfoItem type="whatsapp" val={whatsapp} />}
+        {viber && <UserInfoItem type="viber" val={viber} />} */}
         {mobile2 && <UserInfoItem type="mobile" val={mobile2} />}
         {email2 && <UserInfoItem type="email" val={email2} />}
         {address && <UserInfoItem type="address" val={address} />}
