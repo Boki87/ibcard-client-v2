@@ -30,6 +30,15 @@ export const UserCatalogues = ({ cardData }: UserSocialsProps) => {
     window.open(href, "_blank");
   }
 
+  function sanitizeLinkToHaveHttp(url?: string) {
+    if (!url) return "";
+
+    if (!url.startsWith("http")) {
+      return `https://${url}`;
+    }
+    return url;
+  }
+
   if (offers.length === 0) return null;
 
   return (
@@ -41,15 +50,21 @@ export const UserCatalogues = ({ cardData }: UserSocialsProps) => {
       <div className="flex justify-center flex-wrap gap-4 max-w-xs mx-auto">
         {offers.map((social) => (
           <div className="flex justify-center" key={social.id}>
-            <SocialIcon
-              onClick={() =>
-                handleSocialClick(social.url, social.id, social.type)
-              }
-              url={social.url || ""}
-              type={social.type}
-              title={social.title}
-              key={social.id}
-            />
+            <a
+              href={sanitizeLinkToHaveHttp(social.url)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <SocialIcon
+                onClick={() =>
+                  handleSocialClick(social.url, social.id, social.type)
+                }
+                url={social.url || ""}
+                type={social.type}
+                title={social.title}
+                key={social.id}
+              />
+            </a>
           </div>
         ))}
       </div>
