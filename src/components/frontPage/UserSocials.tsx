@@ -22,8 +22,19 @@ export const UserSocials = ({ cardData }: UserSocialsProps) => {
 
   const commonSocials = cardData.social_links.filter(
     (s) =>
-      s.is_active && !["catalogue", "special_offer", "video"].includes(s.type)
+      s.is_active &&
+      !["catalogue", "special_offer", "video", "whatsapp", "viber"].includes(
+        s.type
+      )
   );
+
+  const viber = cardData.social_links.find(
+    (s) => s.is_active && s.type === "viber"
+  );
+  const whatsapp = cardData.social_links.find(
+    (s) => s.is_active && s.type === "whatsapp"
+  );
+
   async function handleSocialClick(
     href: string | undefined,
     socialId: number,
@@ -63,6 +74,44 @@ export const UserSocials = ({ cardData }: UserSocialsProps) => {
       {videos &&
         videos.map((video) => <VideoThumb video={video} key={video.id} />)}
       <div className="flex justify-center flex-wrap gap-4 max-w-xs mx-auto">
+        {whatsapp && (
+          <div className="flex justify-center" key={whatsapp.id}>
+            <a
+              href={sanitizeLinkToHaveHttp(whatsapp.url, whatsapp.type)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <SocialIcon
+                onClick={() =>
+                  handleSocialClick(whatsapp.url, whatsapp.id, whatsapp.type)
+                }
+                url={whatsapp.url || ""}
+                type={whatsapp.type}
+                title={whatsapp.title}
+                key={whatsapp.id}
+              />
+            </a>
+          </div>
+        )}
+        {viber && (
+          <div className="flex justify-center" key={viber.id}>
+            <a
+              href={sanitizeLinkToHaveHttp(viber.url, viber.type)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <SocialIcon
+                onClick={() =>
+                  handleSocialClick(viber.url, viber.id, viber.type)
+                }
+                url={viber.url || ""}
+                type={viber.type}
+                title={viber.title}
+                key={viber.id}
+              />
+            </a>
+          </div>
+        )}
         {commonSocials.map((social) => (
           <div className="flex justify-center" key={social.id}>
             <a
