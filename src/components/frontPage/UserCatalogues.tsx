@@ -34,11 +34,11 @@ export const UserCatalogues = ({ cardData }: UserSocialsProps) => {
 
   return (
     <div className="mt-4 mb-6">
-      <div className="px-1 mb-2 text-gray-800 dark:text-gray-300 font-bold max-w-xs mx-auto">
+      <div className="px-1 mb-2 text-gray-800 dark:text-gray-300 font-bold max-w-xs mx-auto text-center">
         Catalogues
       </div>
 
-      <div className="grid grid-cols-3 gap-4 max-w-xs mx-auto">
+      <div className="flex justify-center flex-wrap gap-4 max-w-xs mx-auto">
         {offers.map((social) => (
           <div className="flex justify-center" key={social.id}>
             <SocialIcon
