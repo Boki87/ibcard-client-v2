@@ -51,7 +51,10 @@ export const UserCardEdit = ({
                 No
               </span>
               <div>
-                <AppToggle checked={show_shareback} />
+                <AppToggle
+                  checked={show_shareback}
+                  onClick={() => onUpdate("show_shareback", !show_shareback)}
+                />
               </div>
               <span
                 className="text-xs"

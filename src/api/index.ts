@@ -5,7 +5,7 @@ const webAppUrl = import.meta.env.DEV
   : "ibcard.netlify.app";
 
 const baseUrl = import.meta.env.DEV
-  ? "https://ibcards-api.com"
+  ? "http://127.0.0.1:8000"
   : "https://ibcards-api.com";
 
 const api = axios.create({

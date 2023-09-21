@@ -29,6 +29,7 @@ export const useAuth = () => {
       localStorage.setItem("ibcards-user-token", loginRes.data.token);
       setUser(loginRes.data.user);
       setIsLoading(false);
+      navigate("/");
     } catch (e) {
       toast.error("Invalid credentials!");
       console.log(e);
