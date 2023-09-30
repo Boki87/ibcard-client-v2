@@ -43,7 +43,7 @@ export const SocialIcon = ({ type, title, ...props }: SocialIconProps) => {
         )}
       </div>
       {type !== "special_offer" && (
-        <div className="flex justify-center">
+        <div className="flex justify-center truncate">
           <p
             className="text-sm text-gray-700 truncate dark:text-gray-200"
             title={title ? title : formatTypeTitle(type)}

@@ -17,6 +17,7 @@ import { QRModal } from "../QRModal";
 import { useUserContext } from "../../context/UserContext";
 import { useCardData } from "../../hooks/useCardData";
 import { MdContacts } from "react-icons/md";
+import { Card } from "../../types/Card";
 
 const dontShowBottomNav = ["/"];
 
@@ -83,7 +84,7 @@ export const AppLayout = ({ isPrivate = false }: { isPrivate?: boolean }) => {
             <Outlet />
 
             {/* bottom nav */}
-            {showNav ? <BottomNav /> : null}
+            {showNav ? <BottomNav cardData={cardData} /> : null}
             {/* bottom nav end */}
           </div>
 
@@ -97,13 +98,10 @@ export const AppLayout = ({ isPrivate = false }: { isPrivate?: boolean }) => {
   );
 };
 
-const BottomNav = () => {
+const BottomNav = ({ cardData }: { cardData: Card }) => {
   const { user } = useUserContext();
   const { cardId } = useParams();
-  const { cardData, isLoading } = useCardData(cardId);
 
-  if (isLoading) return null;
-  if (!cardData) return null;
   if (user.id !== cardData.user_id) return null;
   return (
     <div className="absolute bottom-0 left-0 w-full h-14 backdrop-blur bg-white/60 dark:bg-black/40 flex items-center justify-around px-4">

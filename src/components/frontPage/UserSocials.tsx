@@ -75,7 +75,7 @@ export const UserSocials = ({ cardData }: UserSocialsProps) => {
         videos.map((video) => <VideoThumb video={video} key={video.id} />)}
       <div className="flex justify-center flex-wrap gap-4 max-w-xs mx-auto">
         {whatsapp && (
-          <div className="flex justify-center" key={whatsapp.id}>
+          <div className="flex justify-center truncate" key={whatsapp.id}>
             <a
               href={sanitizeLinkToHaveHttp(whatsapp.url, whatsapp.type)}
               target="_blank"
@@ -94,7 +94,7 @@ export const UserSocials = ({ cardData }: UserSocialsProps) => {
           </div>
         )}
         {viber && (
-          <div className="flex justify-center" key={viber.id}>
+          <div className="flex justify-center truncate" key={viber.id}>
             <a
               href={sanitizeLinkToHaveHttp(viber.url, viber.type)}
               target="_blank"
@@ -113,7 +113,7 @@ export const UserSocials = ({ cardData }: UserSocialsProps) => {
           </div>
         )}
         {commonSocials.map((social) => (
-          <div className="flex justify-center" key={social.id}>
+          <div className="flex justify-center truncate" key={social.id}>
             <a
               href={sanitizeLinkToHaveHttp(social.url, social.type)}
               target="_blank"
