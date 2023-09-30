@@ -18,7 +18,7 @@ export const useAuth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  async function attemptLogin(e: SyntheticEvent) {
+  async function attemptFormLogin(e: SyntheticEvent) {
     e.preventDefault();
     if (email === "" || password === "") return;
     try {
@@ -35,6 +35,21 @@ export const useAuth = () => {
       console.log(e);
       setIsLoading(false);
     }
+  }
+
+  async function attemptLogin(loginEmail: string, loginPassword: string) {
+    if (loginEmail === "" || loginPassword === "")
+      throw Error("Email and Password are required");
+    setIsLoading(true);
+    await wait();
+    await api.get("/sanctum/csrf-cookie");
+    let loginRes = await api.post("/api/login", {
+      email: loginEmail,
+      password: loginPassword,
+    });
+    localStorage.setItem("ibcards-user-token", loginRes.data.token);
+    setUser(loginRes.data.user);
+    setIsLoading(false);
   }
 
   async function attemptLogout() {
@@ -65,6 +80,7 @@ export const useAuth = () => {
     email,
     password,
     attemptLogin,
+    attemptFormLogin,
     attemptLogout,
     updateAuthForm,
     isLoading,

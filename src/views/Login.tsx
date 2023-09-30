@@ -12,17 +12,17 @@ import { AppLogo } from "../components/ui/AppLogo";
 import { ThemeToggle } from "../components/ThemeToggle";
 
 export const Login = () => {
-  const { email, password, attemptLogin, updateAuthForm, isLoading } =
+  const { email, password, attemptFormLogin, updateAuthForm, isLoading } =
     useAuth();
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="w-full h-full flex items-center justify-center p-6 bg-white dark:bg-gray-900">
+    <div className="w-full h-full flex items-center justify-center p-6 bg-slate-50 dark:bg-gray-900">
       <div className="max-w-sm w-full">
         <div className="text-center mb-4">
           <AppLogo className="h-28 inline" />
         </div>
-        <form onSubmit={attemptLogin}>
+        <form onSubmit={attemptFormLogin}>
           <AppInput
             leftIcon={<AiOutlineMail />}
             placeholder="Email"

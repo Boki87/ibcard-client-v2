@@ -1,80 +1,58 @@
-import {
-  Navigate,
-  Outlet,
-  Route,
-  RouterProvider,
-  createBrowserRouter,
-  createRoutesFromElements,
-  useNavigate,
-} from "react-router-dom";
-import { FC, useEffect } from "react";
-import { Login } from "./views/Login";
-import { Home } from "./views/Home";
-import { useUserContext } from "./context/UserContext";
-import { api } from "./api";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { privateRoutes, publicRoutes } from "./routes";
 import { AppLayout } from "./components/layout/AppLayout";
-import { Stats } from "./components/Stats";
-import { FrontPage } from "./views/Front";
-import { EditPage } from "./views/Edit";
-import { CompanyPortal } from "./views/CompanyPortal";
-import { Contacts } from "./views/Contacts";
-import { RegisterCardPage } from "./views/RegisterCard";
-import { HelpPage } from "./views/Help";
-import { TermsPage } from "./views/Terms";
-import { ForgotPassword } from "./views/ForgotPasswrod";
-import { ResetPassword } from "./views/ResetPassword";
+import { useEffect } from "react";
+import { api } from "./api";
+import { useUserContext } from "./context/UserContext";
 
-const authRouter = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<AppLayout />} errorElement={<Navigate to="/" />}>
-      <Route index element={<Home />} />
-      <Route path="login" element={<Login />} />
-      <Route path="register/:token" element={<RegisterCardPage />} />
-      <Route path="contacts" element={<Contacts />} />
-      <Route path="contacts/:cardId" element={<Contacts />} />
-      <Route path="card/:cardId" element={<FrontPage />} />
-      <Route path="edit/:cardId" element={<EditPage />} />
-      <Route path="stats/:cardId" element={<Stats />} />
-      <Route path="portal/:cardId" element={<CompanyPortal />} />
-      <Route path="help" element={<HelpPage />} />
-      <Route path="terms" element={<TermsPage />} />
-      <Route path="forgot-password" element={<ForgotPassword />} />
-      <Route path="reset-password/:token" element={<ResetPassword />} />
-    </Route>
-  )
-);
-
-const publicRouter = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<AppLayout />}>
-      <Route index element={<Login />} />
-      <Route path="register/:token" element={<RegisterCardPage />} />
-      <Route path="card/:cardId" element={<FrontPage />} />
-      <Route path="help" element={<HelpPage />} />
-      <Route path="terms" element={<TermsPage />} />
-      <Route path="forgot-password" element={<ForgotPassword />} />
-      <Route path="reset-password/:token" element={<ResetPassword />} />
-    </Route>
-  )
-);
-
-export const Router: FC = () => {
+export const Router = () => {
+  const navigate = useNavigate();
   const { user, setUser } = useUserContext();
+  const token = localStorage.getItem("ibcards-user-token");
+
   async function autoLogin() {
     try {
       const res = await api.get("/api/me");
       const data = res.data;
       localStorage.setItem("ibcards-user-token", data.token);
       setUser(data.user);
+      navigate("/");
     } catch (e) {
+      //   console.log(e);
       localStorage.removeItem("ibcards-user-token");
     }
   }
 
   useEffect(() => {
-    if (!user) {
+    if (!user && token) {
       autoLogin();
     }
-  }, [user]);
-  return <RouterProvider router={user ? authRouter : publicRouter} />;
+  }, []);
+
+  return (
+    <Routes>
+      <Route
+        element={<AppLayout isPrivate />}
+        errorElement={<Navigate to="/" />}
+      >
+        {privateRoutes.map((route) => {
+          return (
+            <Route
+              index={route.path === "/"}
+              path={route.path}
+              element={route.element}
+              key={route.path}
+            />
+          );
+        })}
+      </Route>
+      <Route element={<AppLayout />} errorElement={<Navigate to="/" />}>
+        {publicRoutes.map((route) => {
+          return (
+            <Route path={route.path} element={route.element} key={route.path} />
+          );
+        })}
+      </Route>
+    </Routes>
+  );
 };

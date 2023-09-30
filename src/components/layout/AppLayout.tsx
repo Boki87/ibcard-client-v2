@@ -1,22 +1,26 @@
-import { useLocation, Outlet, useParams, Link } from "react-router-dom";
+import {
+  useLocation,
+  Outlet,
+  useParams,
+  Link,
+  Navigate,
+} from "react-router-dom";
 import { AppLogo } from "../ui/AppLogo";
 import { HiBars2 } from "react-icons/hi2";
 import { BsPeople } from "react-icons/bs";
 import { CiCreditCard2, CiEdit } from "react-icons/ci";
 import { SlHome } from "react-icons/sl";
-import { GiChart } from "react-icons/gi";
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 import { useModalsContext } from "../../context/ModalsContext";
 import { MainMenu } from "../MainMenu";
 import { QRModal } from "../QRModal";
 import { useUserContext } from "../../context/UserContext";
 import { useCardData } from "../../hooks/useCardData";
-import { FaAddressBook } from "react-icons/fa";
 import { MdContacts } from "react-icons/md";
 
 const dontShowBottomNav = ["/"];
 
-export const AppLayout = () => {
+export const AppLayout = ({ isPrivate = false }: { isPrivate?: boolean }) => {
   const { user } = useUserContext();
   const { openMainMenu } = useModalsContext();
   const location = useLocation();
@@ -44,44 +48,51 @@ export const AppLayout = () => {
     }
   }
 
+  let showRoutes = isPrivate ? !!user : true;
   return (
     <>
-      <div
-        id="app-wrapper"
-        className={`h-full w-full ${
-          user || location.pathname !== "/" ? "pb-16 pt-14" : "pb-0 pt-0"
-        } overflow-auto`}
-      >
-        {/* top navigation */}
-        <div className="absolute top-0 left-0 w-full h-14 backdrop-blur-md px-4 flex items-center z-10">
-          <Link to="/">
-            <AppLogo />
-          </Link>
-          <div className="flex-1 text-center">
-            {user && (
-              <span className="uppercase text-gray-900 dark:text-gray-200">
-                {pageTitle}
-              </span>
-            )}
-          </div>
-          <button
-            onClick={openMainMenu}
-            className="w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-lg flex items-center justify-center dark:text-white"
+      {showRoutes ? (
+        <>
+          <div
+            id="app-wrapper"
+            className={`h-full w-full ${
+              user || location.pathname !== "/" ? "pb-16 pt-14" : "pb-0 pt-0"
+            } overflow-auto`}
           >
-            <HiBars2 />
-          </button>
-        </div>
-        {/* top navigation end */}
+            {/* top navigation */}
+            <div className="absolute top-0 left-0 w-full h-14 backdrop-blur-md px-4 flex items-center z-10">
+              <Link to="/">
+                <AppLogo />
+              </Link>
+              <div className="flex-1 text-center">
+                {user && (
+                  <span className="uppercase text-gray-900 dark:text-gray-200">
+                    {pageTitle}
+                  </span>
+                )}
+              </div>
+              <button
+                onClick={openMainMenu}
+                className="w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-lg flex items-center justify-center dark:text-white"
+              >
+                <HiBars2 />
+              </button>
+            </div>
+            {/* top navigation end */}
 
-        <Outlet />
+            <Outlet />
 
-        {/* bottom nav */}
-        {showNav ? <BottomNav /> : null}
-        {/* bottom nav end */}
-      </div>
+            {/* bottom nav */}
+            {showNav ? <BottomNav /> : null}
+            {/* bottom nav end */}
+          </div>
 
-      <MainMenu />
-      <QRModal />
+          <MainMenu />
+          <QRModal />
+        </>
+      ) : (
+        <Navigate to="/login" />
+      )}
     </>
   );
 };

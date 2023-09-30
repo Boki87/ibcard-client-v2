@@ -28,9 +28,15 @@ export const UserCard = ({ data, onQrCodeClick }: UserCardProps) => {
           </span>
           <span className="text-sm text-gray-500 dark:text-gray-300 flex items-center flex-wrap">
             <span className="mr-2">{data.company_role} </span>
-            {data.company?.name ? (
+            {/* {data.company?.name ? (
               <span className="mr-2">{"@" + data.company.name}</span>
             ) : data.company_name !== "" ? (
+              <span className="mr-2">{"@" + data.company_name}</span>
+            ) : null} */}
+            {data.company?.name ? (
+              <span className="mr-2">{"@" + data.company.name}</span>
+            ) : null}
+            {data.company_name && data.company_name !== "" ? (
               <span className="mr-2">{"@" + data.company_name}</span>
             ) : null}
             {flag !== "" && (

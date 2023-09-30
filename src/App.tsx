@@ -1,5 +1,4 @@
 import { Router } from "./Router";
-import { MainMenu } from "./components/MainMenu";
 import { AppShellLayout } from "./components/layout/AppShellLayout";
 import { Toaster } from "react-hot-toast";
 

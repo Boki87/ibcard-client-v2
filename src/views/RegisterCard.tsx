@@ -7,13 +7,20 @@ import { api } from "../api";
 import { AppButton } from "../components/ui/AppButton";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { BsFillPersonFill } from "react-icons/bs";
+import { useUserContext } from "../context/UserContext";
+import { useAuth } from "../hooks/useAuth";
 
 export const RegisterCardPage = () => {
+  const { attemptLogin } = useAuth();
+  const { user } = useUserContext();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { token } = useParams();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [confirmEmail, setConfirmEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,18 +35,28 @@ export const RegisterCardPage = () => {
     try {
       setIsLoading(true);
       const res = await api.post(`/api/register-with-card`, {
+        first_name: firstName,
+        last_name: lastName,
         phone,
         email,
         password,
         token,
       });
-      if (res.data.newRegistration) {
-        navigate(`/`);
+
+      if (!user) {
+        //attempt login
+        await attemptLogin(email, password);
+        navigate(`/edit/${token}`);
       } else {
-        navigate(`/`);
+        navigate(`/edit/${token}`);
       }
-      toast.success("You have successfully registered your card 👏");
+
+      toast.success(
+        "You have successfully registered your card 👏. Go ahead now and edit it to your liking.",
+        { duration: 5000 }
+      );
     } catch (e) {
+      console.log(e);
       toast.error(
         "Something went wrong. Please try again or contact our support."
       );
@@ -58,6 +75,7 @@ export const RegisterCardPage = () => {
 
   useEffect(() => {
     if (
+      firstName !== "" &&
       password !== "" &&
       confirmPassword !== "" &&
       password !== confirmPassword
@@ -78,12 +96,40 @@ export const RegisterCardPage = () => {
           <p>Register your card</p>
         </div>
         <label className="ml-3 -mb-2 text-gray-700 dark:text-gray-200">
+          First Name:
+        </label>
+        <AppInput
+          required
+          type="text"
+          placeholder="John"
+          autoComplete="off"
+          leftIcon={<BsFillPersonFill />}
+          value={firstName}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            setFirstName(e.target.value);
+          }}
+        />
+        <label className="ml-3 -mb-2 text-gray-700 dark:text-gray-200">
+          Last Name:
+        </label>
+        <AppInput
+          required
+          type="text"
+          placeholder="Doe"
+          autoComplete="off"
+          leftIcon={<BsFillPersonFill />}
+          value={lastName}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            setLastName(e.target.value);
+          }}
+        />
+        <label className="ml-3 -mb-2 text-gray-700 dark:text-gray-200">
           Phone:
         </label>
         <AppInput
           required
           type="text"
-          placeholder="Phone Number"
+          placeholder="+000 000 000"
           autoComplete="off"
           leftIcon={<FaPhone />}
           value={phone}
@@ -97,7 +143,7 @@ export const RegisterCardPage = () => {
         <AppInput
           required
           type="email"
-          placeholder="Email"
+          placeholder="john.doe@email.com"
           autoComplete="off"
           leftIcon={<FaEnvelope />}
           value={email}
@@ -111,7 +157,7 @@ export const RegisterCardPage = () => {
         <AppInput
           required
           type="email"
-          placeholder="Confirm email"
+          placeholder="john.doe@email.com"
           autoComplete="off"
           leftIcon={<FaEnvelope />}
           value={confirmEmail}
@@ -168,7 +214,9 @@ export const RegisterCardPage = () => {
             Passwords don't match
           </p>
         )}
-        <AppButton type="submit">Register</AppButton>
+        <AppButton isLoading={isLoading} type="submit">
+          NEXT
+        </AppButton>
       </form>
     </div>
   );

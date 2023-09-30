@@ -1,5 +1,5 @@
 import { api } from "../api";
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { Card } from "../types/Card";
 import { UserCard } from "../components/UserCard";
 import { CardSkeletonLoader } from "../components/CardSkeletonLoader";
