@@ -10,6 +10,9 @@ export default {
       colors: {
         primary: "#2A6FBF"
       },
+      screens: {
+        standalone: { raw: "(display-mode: standalone)" }
+      }
     },
   },
   plugins: [],
