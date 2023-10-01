@@ -105,7 +105,7 @@ const BottomNav = ({ cardData }: { cardData: Card }) => {
   if (!user?.id || !cardData) return null;
   if (user.id !== cardData.user_id) return null;
   return (
-    <div className="absolute bottom-0 left-0 w-full h-14 backdrop-blur bg-white/60 dark:bg-black/40 flex items-center justify-around px-4 standalone:pb-8">
+    <div className="absolute bottom-0 left-0 w-full h-14 standalone:h-16 backdrop-blur bg-white/60 dark:bg-black/40 flex items-center justify-around px-4 standalone:pb-3">
       <BottomNavLink to="/">
         <SlHome className="text-2xl" />
       </BottomNavLink>
