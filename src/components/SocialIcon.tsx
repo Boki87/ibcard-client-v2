@@ -18,13 +18,21 @@ export const SocialIcon = ({ type, title, ...props }: SocialIconProps) => {
     return title;
   }
 
+  function formatTitle(title: string) {
+    if (title.length > 11) {
+      return title.slice(0, 10) + "...";
+    } else {
+      return title;
+    }
+  }
+
   return (
     <div
-      className="flex flex-col cursor-pointer max-w-[100px]"
+      className="flex flex-col cursor-pointer max-w-[100px] overflow-hidden"
       {...props}
       title={title ? title : formatTypeTitle(type)}
     >
-      <div className="flex items-center justify-center truncate">
+      <div className="flex items-center justify-center truncate overflow-hidden">
         {type === "special_offer" ? (
           <div className="w-20 h-20 flex items-center justify-center bg-gradient-to-tr from-blue-900 to-blue-600 rounded-xl text-xs break-all text-gray-100 truncate">
             <span>{!title || title === "" ? "Special Offer" : title}</span>
@@ -46,7 +54,7 @@ export const SocialIcon = ({ type, title, ...props }: SocialIconProps) => {
             className="text-sm text-gray-700 truncate dark:text-gray-200"
             title={title ? title : formatTypeTitle(type)}
           >
-            {title ? title : formatTypeTitle(type)}
+            {title ? formatTitle(title) : formatTypeTitle(type)}
           </p>
         </div>
       )}
