@@ -119,9 +119,10 @@ export const SocialsEditor = ({
 
             <AppInput
               value={socialData?.title ?? ""}
-              placeholder="Title"
+              placeholder="Title (optional)"
               leftIcon={<MdOutlineTitle />}
               className="mb-4"
+              maxLength={11}
               onChange={(e: SyntheticEvent) => {
                 const input = e.target as HTMLInputElement;
                 setSocialData((prev) => {

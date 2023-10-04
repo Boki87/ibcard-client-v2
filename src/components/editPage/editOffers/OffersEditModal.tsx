@@ -130,7 +130,7 @@ export const OffersEditModal = ({
             </div>
           ) : (
             <>
-              <div className="px-8 my-4 text-gray-700 dark:text-gray-200">
+              <div className="px-8 my-4 text-gray-700 dark:text-gray-200 w-full max-w-xs mx-auto">
                 Click on icon to edit
               </div>
               <div

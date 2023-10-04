@@ -87,7 +87,7 @@ export const RegisterCardPage = () => {
   }, [password, confirmPassword]);
 
   return (
-    <div className="w-full h-full flex items-center justify-center p-6">
+    <div className="w-full h-full flex items-center justify-center p-6 my-20">
       <form onSubmit={submitHandler} className="flex flex-col gap-3 w-full">
         <div className="text-center sm:text-lg text-3xl text-gray-700 dark:text-gray-200 font-bold uppercase">
           <p>welcome to ib card</p>

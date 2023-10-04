@@ -20,16 +20,14 @@ export const SocialIcon = ({ type, title, ...props }: SocialIconProps) => {
 
   return (
     <div
-      className="flex flex-col truncate cursor-pointer"
+      className="flex flex-col cursor-pointer max-w-[100px]"
       {...props}
       title={title ? title : formatTypeTitle(type)}
     >
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center truncate">
         {type === "special_offer" ? (
           <div className="w-20 h-20 flex items-center justify-center bg-gradient-to-tr from-blue-900 to-blue-600 rounded-xl text-xs break-all text-gray-100 truncate">
-            <div className="truncate">
-              {!title || title === "" ? "Special Offer" : title}
-            </div>
+            <span>{!title || title === "" ? "Special Offer" : title}</span>
           </div>
         ) : (
           <div

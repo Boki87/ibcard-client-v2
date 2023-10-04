@@ -62,7 +62,7 @@ const UserInfoItem = ({ type, val }: UserInfoProps) => {
     viber: `viber://add?number=`,
   };
 
-  let href = hrefTemplates[type] || "" + val;
+  let href = (hrefTemplates[type] || "") + val;
   if (type === "address") {
     href = "https://maps.google.com/maps?q=" + encodeURIComponent(val);
   }

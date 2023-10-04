@@ -1,7 +1,7 @@
 import VCard from "vcard-creator";
 import { Card } from "../types/Card";
 
-export function saveVcf(contact: Card) {
+export async function saveVcf(contact: Card) {
   const {
     first_name,
     last_name,
@@ -17,6 +17,7 @@ export function saveVcf(contact: Card) {
     social_links,
     email,
     nfc_card,
+    image_path,
   } = contact;
   const myVCard = new VCard();
   myVCard.addName(last_name || "", first_name || "");
@@ -44,6 +45,39 @@ export function saveVcf(contact: Card) {
     myVCard.addURL(nfc_card.link);
   }
 
+  if (image_path) {
+    // myVCard.addPhotoURL(image_path);
+    try {
+      const blob = await toDataUrl(image_path);
+      myVCard.addPhoto(blob as string, "JPEG");
+      console.log(blob);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  function toDataUrl(url: string) {
+    return new Promise((res, rej) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          var reader = new FileReader();
+          reader.onloadend = function () {
+            res(reader.result.toString());
+          };
+          reader.readAsDataURL(xhr.response);
+        } else {
+          rej({ status: xhr.status, statusText: xhr.statusText });
+        }
+      };
+      xhr.onerror = () => {
+        rej({ status: xhr.status, statusText: xhr.statusText });
+      };
+      xhr.open("GET", url);
+      xhr.responseType = "blob";
+      xhr.send();
+    });
+  }
   // if (mobile_2) {
   //   myVCard.addPhoneNumber(mobile_2);
   // }
