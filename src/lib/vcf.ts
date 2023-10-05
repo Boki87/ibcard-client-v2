@@ -52,7 +52,7 @@ export async function saveVcf(contact: Card) {
       const blob = blobRes.split("base64,")[1];
       myVCard.addPhoto(blob, "JPEG");
       // // myVCard.addPhotoURL(image_path);
-      console.log(blob);
+      console.log(111111, blobRes, blob);
     } catch (e) {
       console.log(e);
     }
