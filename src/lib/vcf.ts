@@ -48,15 +48,17 @@ export async function saveVcf(contact: Card) {
   if (image_path) {
     // myVCard.addPhotoURL(image_path);
     try {
-      const blob = await toDataUrl(image_path);
-      myVCard.addPhoto(blob as string, "JPEG");
+      const blobRes = await toDataUrl(image_path);
+      const blob = blobRes.split("base64,")[1];
+      myVCard.addPhoto(blob, "JPEG");
+      // // myVCard.addPhotoURL(image_path);
       console.log(blob);
     } catch (e) {
       console.log(e);
     }
   }
 
-  function toDataUrl(url: string) {
+  function toDataUrl(url: string): Promise<string> {
     return new Promise((res, rej) => {
       var xhr = new XMLHttpRequest();
       xhr.onload = function () {
@@ -96,7 +98,7 @@ export async function saveVcf(contact: Card) {
   //     myVCard.addURL(link.url);
   //   }
   // });
-
+  // return;
   const blob = new Blob([myVCard.toString()], { type: "text/vcard" });
   const elem = window.document.createElement("a");
   elem.href = window.URL.createObjectURL(blob);
