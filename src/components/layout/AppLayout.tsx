@@ -50,7 +50,6 @@ export const AppLayout = ({ isPrivate = false }: { isPrivate?: boolean }) => {
   }
 
   let showRoutes = isPrivate ? !!user : true;
-  showRoutes = true;
   return (
     <>
       {showRoutes ? (
