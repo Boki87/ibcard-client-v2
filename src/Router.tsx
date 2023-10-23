@@ -1,4 +1,10 @@
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { privateRoutes, publicRoutes } from "./routes";
 import { AppLayout } from "./components/layout/AppLayout";
 import { useEffect } from "react";
@@ -7,6 +13,7 @@ import { useUserContext } from "./context/UserContext";
 
 export const Router = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user, setUser } = useUserContext();
   const token = localStorage.getItem("ibcards-user-token");
 
@@ -16,7 +23,11 @@ export const Router = () => {
       const data = res.data;
       localStorage.setItem("ibcards-user-token", data.token);
       setUser(data.user);
-      navigate("/");
+      // if (location.pathname.includes("card")) {
+      //   console.log(111);
+      // }
+      // console.log(location);
+      // navigate("/");
     } catch (e) {
       //   console.log(e);
       localStorage.removeItem("ibcards-user-token");
