@@ -13,6 +13,7 @@ import { saveVcf } from "../../lib/vcf";
 import { UserOffers } from "./UserOffers";
 import { UserCatalogues } from "./UserCatalogues";
 import { ShareBackModal } from "../ShareBackModal";
+import { api } from "../../api";
 
 interface FrontPageComponentProps {
   cardData: Card;
@@ -40,8 +41,11 @@ export const FrontPageComponent = ({ cardData }: FrontPageComponentProps) => {
     }
   }
 
-  function saveHandler() {
-    //TODO: request to collect user save
+   async function saveHandler() {
+    await api.post(`/api/user-save `, {
+      user_id: cardData.user_id,
+      customer_id: cardData.customer_id,
+    });
     saveVcf(cardData);
   }
 

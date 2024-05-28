@@ -20,7 +20,6 @@ import {
   FaInfoCircle,
   FaNetworkWired,
 } from "react-icons/fa";
-
 export const Stats = () => {
   const { cardId } = useParams();
   const { cardData } = useCardData(cardId);
@@ -180,17 +179,17 @@ export const Stats = () => {
     }
 
     try {
-      const saved = await api.post(`/api/saved2`, {
+      const saved = await api.post(`/api/saved`, {
         start_time: startDate,
         end_time: endDate,
         user_id: cardData.user_id,
         users_data_id: cardData.id,
       });
-
+       
       if (saved.data.length == 0) {
         setSaved(0);
       } else {
-        setSaved(saved.data[0]);
+        setSaved(saved.data.length);
       }
     } catch (error) {
       console.error("Error:", error);
