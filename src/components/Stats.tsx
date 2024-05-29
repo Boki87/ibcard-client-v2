@@ -254,7 +254,7 @@ export const Stats = () => {
           <div className="flex-grow text-right text-sm">{views}</div>
         </div>
 
-        <div
+        {/* <div
           className="flex items-center w-full p-4 border 
       border-gray-300 dark:border-gray-400 m-2 dark:text-white dark:bg-gray-800 rounded-2xl bg-white "
         >
@@ -263,7 +263,7 @@ export const Stats = () => {
             <div className="text-sm font-medium ml-2">Saved</div>
           </div>
           <div className="flex-grow text-right text-sm">{saved}</div>
-        </div>
+        </div> */}
 
         <div
           className="flex items-center w-full p-4 border 
