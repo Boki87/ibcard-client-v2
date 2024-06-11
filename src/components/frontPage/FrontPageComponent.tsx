@@ -42,10 +42,10 @@ export const FrontPageComponent = ({ cardData }: FrontPageComponentProps) => {
   }
 
    async function saveHandler() {
-    // await api.post(`/api/user-save `, {
-    //   user_id: cardData.user_id,
-    //   customer_id: cardData.customer_id,
-    // });
+    await api.post(`/api/user-save `, {
+      user_id: cardData.user_id,
+      customer_id: cardData.customer_id,
+    });
     saveVcf(cardData);
   }
 

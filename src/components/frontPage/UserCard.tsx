@@ -14,12 +14,25 @@ interface UserCardProps {
 export const UserCard = ({ data, onQrCodeClick }: UserCardProps) => {
   const { user } = useUserContext();
   const flag = getFlag(data.country || "");
+  const name = data.first_name.split(" ");
+  let Initials;
+  if(!data.image_path){
+     Initials  = name[0].charAt(0) + name[1].charAt(0) ;
+  }
+  
   return (
     <div className="w-full max-w-lg rounded-2xl my-4 p-4 shadow-xl flex min-h-[200px] mx-auto bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-400">
       <div className="flex flex-col flex-1 justify-between">
         {data.image_path && (
           <div className="w-32 h-32 rounded-full flex flex-col overflow-hidden items-center justify-center mb-2">
             <img src={data.image_path} className="object-cover h-full w-full" />
+          </div>
+        )}
+        {!data.image_path && (
+          <div className="w-32 h-32 rounded-full border flex flex-col overflow-hidden items-center justify-center mb-2">
+            <span className="text-2xl text-gray-800 dark:text-white font-bold mb-0">
+            {Initials} 
+            </span>
           </div>
         )}
         <div className="flex flex-col flex-wrap">
