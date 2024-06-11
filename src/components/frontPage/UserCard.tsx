@@ -14,10 +14,9 @@ interface UserCardProps {
 export const UserCard = ({ data, onQrCodeClick }: UserCardProps) => {
   const { user } = useUserContext();
   const flag = getFlag(data.country || "");
-  const name = data.first_name.split(" ");
   let Initials;
   if(!data.image_path){
-     Initials  = name[0].charAt(0) + name[1].charAt(0) ;
+     Initials  = data.first_name.charAt(0) + data.last_name.charAt(0);
   }
   
   return (
