@@ -40,9 +40,9 @@ export const Stats = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [csvData, setCsvDate] = useState([]);
-  const [views, setViews] = useState(null);
-  const [saved, setSaved] = useState(null);
-  const [contacts, setContacts] = useState(null);
+  const [views, setViews] = useState(0);
+  const [saved, setSaved] = useState(0);
+  const [contacts, setContacts] = useState(0);
 
   const socialRecordCounts: Record<string, number> = {};
 
