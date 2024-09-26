@@ -4,6 +4,7 @@ import { Company } from "./Company";
 import { SocialLink } from "./SocialLink";
 
 export type Card = {
+  show_logo: boolean;
   id: number;
   user_id: number;
   customer_id?: number;
@@ -21,6 +22,7 @@ export type Card = {
   company?: Company;
   country?: string;
   image_path?: string;
+  logo_path?: string;
   first_name?: string;
   last_name?: string;
   mobile?: string;

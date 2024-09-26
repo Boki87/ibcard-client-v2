@@ -9,6 +9,7 @@ type UpdatePropType =
   | "image_path"
   | "first_name"
   | "last_name"
+  | "show_logo"
   | "show_shareback";
 type UpdateValType<T extends UpdatePropType> = T extends "show_shareback"
   ? boolean
@@ -16,11 +17,14 @@ type UpdateValType<T extends UpdatePropType> = T extends "show_shareback"
 
 interface UserCardEditProps {
   avatar: string;
-  first_name: string;
+  first_name: string; 
   last_name: string;
   show_shareback: boolean;
+  show_logo:boolean;
   onUploadAvatar?: (file: File) => void;
+  onUploadLogo?: (file: File) => void;
   isUploading?: boolean;
+  isUploadingLogo?: boolean;
   onUpdate: (prop: UpdatePropType, val: UpdateValType<UpdatePropType>) => void;
 }
 
@@ -29,8 +33,11 @@ export const UserCardEdit = ({
   first_name,
   last_name,
   show_shareback,
+  show_logo,
   onUploadAvatar,
+  onUploadLogo,
   isUploading,
+  isUploadingLogo,
   onUpdate,
 }: UserCardEditProps) => {
   return (
@@ -85,15 +92,16 @@ export const UserCardEdit = ({
           </div>
         </div>
         <div className="flex-1 flex flex-col justify-start">
+        <div className="flex-1 flex flex-col justify-start">
           <label
             htmlFor="avatar"
-            className="flex justify-center mb-1 text-xs md:text-sm text-center"
+            className="flex justify-center mb-1 text-xs md:text-sm text-center cursor-pointer"
           >
             Change Profile Picture
           </label>
           <div className="flex justify-center">
             <label htmlFor="avatar" className="flex justify-center">
-              <GoFileMedia className="text-2xl" />
+              <GoFileMedia className="text-2xl cursor-pointer" />
             </label>
           </div>
           <input
@@ -107,6 +115,60 @@ export const UserCardEdit = ({
             style={{ display: "none" }}
           />
         </div>
+
+        <div className="flex-1 flex flex-col justify-start">
+          <label
+            htmlFor="logo"
+            className="flex justify-center mb-1 text-xs md:text-sm text-center cursor-pointer"
+          >
+            Change Logo Picture
+          </label>
+          <div className="flex justify-center">
+            <label htmlFor="logo" className="flex justify-center">
+              <GoFileMedia className="text-2xl cursor-pointer" />
+            </label>
+          </div>
+          <input
+            onChange={(e: SyntheticEvent) => {
+              const input = e.target as HTMLInputElement;
+              if (!input.files || input.files.length === 0) return;
+              onUploadLogo && onUploadLogo(input.files[0]);
+            }}
+            type="file"
+            id="logo"
+            style={{ display: "none" }}
+          />
+        </div>
+        <div>
+            <div className="flex justify-center mb-1 text-xs sm:text-sm">
+              Show Logo
+            </div>
+            <div className="flex justify-center items-center space-x-2">
+              <span
+                className="text-xs"
+                onClick={() => {
+                  onUpdate("show_logo", false);
+                }}
+              >
+                No
+              </span>
+              <div>
+                <AppToggle
+                  checked={show_logo}
+                  onClick={() => onUpdate("show_logo", !show_logo)}
+                />
+              </div>
+              <span
+                className="text-xs"
+                onClick={() => {
+                  onUpdate("show_logo", true);
+                }}
+              >
+                Yes
+              </span>
+            </div>
+          </div>
+      </div>
       </div>
       <div className="flex items-center justify-center space-x-2">
         <AppInput

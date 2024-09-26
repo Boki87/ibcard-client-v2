@@ -11,7 +11,7 @@ import { countries } from "../../lib/countries";
 import { departments } from "../../lib/departments";
 import { api } from "../../api";
 import { CgSpinner } from "react-icons/cg";
-import { uploadAvatar } from "../../lib/utils";
+import { uploadAvatar, uploadLogo } from "../../lib/utils";
 import { SocialsEditWidget } from "./editSicials/SocialsEditWidget";
 import { useParams } from "react-router-dom";
 import { VideosEditWidget } from "./editVideos/VideosEditWidget";
@@ -30,6 +30,7 @@ export const EditPageComponent = ({ cardData }: EditPageComponentProps) => {
   const [isUpdating, setIsUpdating] = useState(false);
   const [showSaveButton, setShowButton] = useState(false);
   const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
+  const [isUploadingLogo, setIsUploadingLogo] = useState(false);
   const initialCacheData = useRef(cardData);
 
   function selectChangeHandler(e: SyntheticEvent) {
@@ -92,6 +93,20 @@ export const EditPageComponent = ({ cardData }: EditPageComponentProps) => {
     }
   }
 
+  async function uploadLogoHandler(file: File) {
+    try {
+      setIsUploadingLogo(true);
+      const res = await uploadLogo(file, initialCardData.id);
+      setInitialCardData((prev) => {
+        return { ...prev, logo_path: res?.data.logo_path };
+      });
+      setIsUploadingLogo(false);
+    } catch (e) {
+      console.log(e);
+      setIsUploadingLogo(false);
+    }
+  }
+
   async function refetchCardData() {
     try {
       const res = await api.get(`/api/user-data/${cardId}`);
@@ -109,6 +124,7 @@ export const EditPageComponent = ({ cardData }: EditPageComponentProps) => {
       "first_name",
       "last_name",
       "show_shareback",
+      "show_logo",
       "country",
       "department",
       "company_role",
@@ -135,8 +151,11 @@ export const EditPageComponent = ({ cardData }: EditPageComponentProps) => {
         first_name={initialCardData.first_name ?? ""}
         last_name={initialCardData.last_name ?? ""}
         show_shareback={initialCardData.show_shareback ?? false}
+        show_logo={initialCardData.show_logo ?? false}
         onUploadAvatar={uploadAvatarHandler}
+        onUploadLogo={uploadLogoHandler}
         isUploading={isUploadingAvatar}
+        isUploadingLogo={isUploadingLogo}
         onUpdate={(prop, val) => {
           setInitialCardData((prev) => {
             return { ...prev, [prop]: val };
