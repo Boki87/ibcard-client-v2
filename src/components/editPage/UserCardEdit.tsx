@@ -91,7 +91,7 @@ export const UserCardEdit = ({
             )}
           </div>
         </div>
-        <div className="flex-1 flex flex-col justify-start">
+       <div className="flex-1 flex flex-col justify-start">
         <div className="flex-1 flex flex-col justify-start">
           <label
             htmlFor="avatar"
@@ -116,7 +116,7 @@ export const UserCardEdit = ({
           />
         </div>
 
-        <div className="flex-1 flex flex-col justify-start">
+        {/* <div className="flex-1 flex flex-col justify-start">
           <label
             htmlFor="logo"
             className="flex justify-center mb-1 text-xs md:text-sm text-center cursor-pointer"
@@ -138,8 +138,8 @@ export const UserCardEdit = ({
             id="logo"
             style={{ display: "none" }}
           />
-        </div>
-        <div>
+        </div> */}
+        {/* <div>
             <div className="flex justify-center mb-1 text-xs sm:text-sm">
               Show Logo
             </div>
@@ -167,7 +167,7 @@ export const UserCardEdit = ({
                 Yes
               </span>
             </div>
-          </div>
+          </div> */}
       </div>
       </div>
       <div className="flex items-center justify-center space-x-2">

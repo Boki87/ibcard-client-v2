@@ -18,6 +18,7 @@ export const UserCard = ({ data, onQrCodeClick }: UserCardProps) => {
   let Initials;
   if(!data.image_path){
      Initials  = data.first_name.charAt(0) + data.last_name.charAt(0);
+     console.log(Initials);
   }  
   const logo_image_path = "/src/assets/ib_logo-white.png";
   const isJPEG = data.logo_path ? data.logo_path.endsWith(".jpg") || data.logo_path.endsWith(".jpeg") : false;
@@ -39,7 +40,7 @@ export const UserCard = ({ data, onQrCodeClick }: UserCardProps) => {
             </div>
           )}
 
-          
+{/*           
           {data.show_logo == true && data.logo_path && (
             <div className="absolute bottom-0 left-24 w-12 h-12 flex items-center justify-center border border-gray-300 z-1 rounded-full dark:border-white">
             
@@ -53,7 +54,7 @@ export const UserCard = ({ data, onQrCodeClick }: UserCardProps) => {
      
     
           </div>
-          )}
+          )} */}
         </div>
 
 
