@@ -19,6 +19,7 @@ interface UserMainInfoProps {
   mobile2?: string;
   whatsapp?: string;
   viber?: string;
+  telegram?: string;
   address?: string;
   website?: string;
 }
@@ -30,6 +31,7 @@ export const UserMainInfo = ({
   mobile2,
   whatsapp,
   viber,
+  telegram,
   address,
   website,
 }: UserMainInfoProps) => {
@@ -50,7 +52,7 @@ export const UserMainInfo = ({
 };
 
 interface UserInfoProps {
-  type: "email" | "mobile" | "whatsapp" | "viber" | "address" | "website";
+  type: "email" | "mobile" | "whatsapp" | "viber" | "address" | "website" | "telegram";
   val: string;
 }
 
@@ -60,6 +62,7 @@ const UserInfoItem = ({ type, val }: UserInfoProps) => {
     mobile: `tel:`,
     whatsapp: `https://api.whatsapp.com/send?phone=`,
     viber: `viber://add?number=`,
+    telegram: `tg://call?number=`,
   };
 
   let href = (hrefTemplates[type] || "") + val;
@@ -72,6 +75,10 @@ const UserInfoItem = ({ type, val }: UserInfoProps) => {
   }
   if (type === "viber") {
     style = "bg-purple-600 text-white border-purple-600 dark:border-purple-600";
+  }
+
+  if (type === "telegram") {
+    style = "bg-telegramBlue";
   }
 
   function sanitizeLinkToHaveHttp(url?: string) {

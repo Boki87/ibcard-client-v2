@@ -39,6 +39,7 @@ export type Card = {
   is_migrated_links?: boolean;
   whatsapp?: string;
   viber?: string;
+  telegram?: string;
 
   // department_id?: number;
   // department?: Department;

@@ -15,7 +15,8 @@ import {
   FaLinkedin,
   FaWhatsapp,
   FaViber,
-} from "react-icons/fa";
+  FaTelegram
+  } from "react-icons/fa";
 
 interface SocialIcon {
   name: string;
@@ -31,6 +32,13 @@ export const SOCIAL_ICONS: SocialIcon[] = [
     icon: <FaWhatsapp />,
     bg: "bg-green-500",
   },
+  {
+    name: "Telegram",
+    type: "telegram",
+    icon: <FaTelegram />,
+    bg: "bg-telegramBlue",
+  },
+  
   {
     name: "Viber",
     type: "viber",

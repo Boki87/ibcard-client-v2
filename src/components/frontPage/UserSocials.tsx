@@ -23,7 +23,7 @@ export const UserSocials = ({ cardData }: UserSocialsProps) => {
   const commonSocials = cardData.social_links.filter(
     (s) =>
       s.is_active &&
-      !["catalogue", "special_offer", "video", "whatsapp", "viber"].includes(
+      !["catalogue", "special_offer", "video", "whatsapp", "viber,telegram"].includes(
         s.type
       )
   );
@@ -33,6 +33,9 @@ export const UserSocials = ({ cardData }: UserSocialsProps) => {
   );
   const whatsapp = cardData.social_links.find(
     (s) => s.is_active && s.type === "whatsapp"
+  );
+  const telegram = cardData.social_links.find(
+    (s) => s.is_active && s.type === "telegram"
   );
 
   async function handleSocialClick(
@@ -62,6 +65,11 @@ export const UserSocials = ({ cardData }: UserSocialsProps) => {
     if (type === "viber") {
       return `viber://add?number=${url}`;
     }
+
+    if (type === "telegram") {
+      return `tg://call?number=${url}`
+    }
+
 
     if (!url.startsWith("http")) {
       return `https://${url}`;
@@ -108,6 +116,25 @@ export const UserSocials = ({ cardData }: UserSocialsProps) => {
                 type={viber.type}
                 title={viber.title}
                 key={viber.id}
+              />
+            </a>
+          </div>
+        )}
+        {viber && (
+          <div className="flex justify-center truncate" key={telegram.id}>
+            <a
+              href={sanitizeLinkToHaveHttp(telegram.url, telegram.type)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <SocialIcon
+                onClick={() =>
+                  handleSocialClick(telegram.url, telegram.id, telegram.type)
+                }
+                url={telegram.url || ""}
+                type={telegram.type}
+                title={telegram.title}
+                key={telegram.id}
               />
             </a>
           </div>

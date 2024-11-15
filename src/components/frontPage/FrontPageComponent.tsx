@@ -65,6 +65,7 @@ export const FrontPageComponent = ({ cardData }: FrontPageComponentProps) => {
           mobile2={cardData.mobile_2}
           whatsapp={cardData.mobile}
           viber={cardData.mobile}
+          telegram={cardData.mobile}
           address={cardData.address}
           website={cardData.website}
         />

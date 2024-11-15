@@ -15,4 +15,5 @@ export type SocialType =
   | "catalogue"
   | "whatsapp"
   | "viber"
-  | "flyer";
+  | "flyer"
+  | "telegram";

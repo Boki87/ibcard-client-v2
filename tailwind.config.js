@@ -8,7 +8,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#2A6FBF"
+        primary: "#2A6FBF",
+        telegramBlue: '#1C92D2',
       },
       screens: {
         standalone: { raw: "(display-mode: standalone)" }
