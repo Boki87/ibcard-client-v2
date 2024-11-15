@@ -120,7 +120,7 @@ export const UserSocials = ({ cardData }: UserSocialsProps) => {
             </a>
           </div>
         )}
-        {viber && (
+        {telegram && (
           <div className="flex justify-center truncate" key={telegram.id}>
             <a
               href={sanitizeLinkToHaveHttp(telegram.url, telegram.type)}
